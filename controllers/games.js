@@ -17,7 +17,7 @@ function index(req, res) {
     .populate("tag")
     .then(function (games) {
       games.forEach(function (game) {
-        console.log(game.tag);
+
       });
       res.render("games/index", {
         games,
@@ -35,9 +35,10 @@ function newGame(req, res) {
 }
 
 function create(req, res) {
+  console.log(req.body)
   let gameBody = { title: req.body.title, description: req.body.description };
   const game = new Game(gameBody);
-  Tag.findOne({ id: req.body.tag }).then(function (tag) {
+  Tag.findOne({ _id: req.body.tag }).then(function (tag) {
     game.tag.push(tag._id);
     game.save(function (err) {
       if (err) {

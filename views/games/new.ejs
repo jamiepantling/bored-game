@@ -3,9 +3,9 @@
   Title<input name="title" /><br />
   Description<input name="description" /><br>
   Tags:<select name="tag">
-      <% tags.forEach(function(tag) { %>
-        <option value="<%=tag.id%>"><%=tag.content%></option>
-      <% }) %>
+      <%- tags.map(t => 
+        `<option value="${t.id}">${t.content}</option>`
+    ).join("") %>
   </select><br>
   <button>Submit</button>
 </form>

@@ -10,7 +10,7 @@
   <ul>
     <% if(!(game.tag)) {%> No tags yet <%} else { %> <%
     game.tag.forEach(function(tag) { %> <%= console.log(tag) %>
-    <li>Tag1: <%= tag.content%></li>
+    <li><%= tag.content%></li>
     <% })}%>
   </ul>
   <%}) %>
