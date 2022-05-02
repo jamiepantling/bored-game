@@ -2,13 +2,13 @@ const { redirect } = require("express/lib/response");
 let Game = require("../models/game");
 let Tag = require("../models/tag");
 let User = require("../models/user");
-let Review = require("../models/review");
 
 module.exports = {
   index,
   new: newGame,
   create,
   show,
+  addTag,
 };
 
 function index(req, res) {
@@ -16,9 +16,7 @@ function index(req, res) {
   Game.find({})
     .populate("tag")
     .then(function (games) {
-      games.forEach(function (game) {
-
-      });
+      games.forEach(function (game) {});
       res.render("games/index", {
         games,
         title: "All games",
@@ -35,7 +33,7 @@ function newGame(req, res) {
 }
 
 function create(req, res) {
-  console.log(req.body)
+  console.log(req.body);
   let gameBody = { title: req.body.title, description: req.body.description };
   const game = new Game(gameBody);
   Tag.findOne({ _id: req.body.tag }).then(function (tag) {
@@ -50,9 +48,23 @@ function create(req, res) {
   });
 }
 
-function show(req, res) {
-  Game.findById(req.params.id, function (err, game) {
-    console.log(game);
-    res.render("games/show", { game, title: "Game details" });
-  });
+async function show(req, res) {
+   let game = await Game.findById(req.params.id).populate("tag")
+  console.log(game);
+  let tags = await Tag.find({})
+  res.render("games/show", { game, title: "Game details", tags });
+  }
+
+async function addTag(req, res) {
+  let game = await Game.findById(req.params.gameId);
+  let newTag = await Tag.findById(req.params.tagId);
+  console.log(game, newTag);
+  if (game.tag) {
+    await game.tag.push(newTag._id);
+  } else {
+    game.tag = [newTag._id];
+  }
+  await game.save();
+  console.log(game);
+  res.redirect(`/games/${req.params.gameId}`);
 }

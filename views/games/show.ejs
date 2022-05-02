@@ -1,11 +1,37 @@
 <%- include("../partials/header") %>
 Title: <%= game.title%><br>
 Description: <%= game.description %>
+<ul></ul>
+    <% if(game.tag) { %>
+        <li>Tags:
+            <ul>
+        <% game.tag.forEach(function(tag) { %>
+            <li><%=tag.content%></li>
+        <% }) %>
+    <% } %>
+</ul></li>
+    <li>Add tags:
+        <ul>
+            <%tags.forEach(function(tag) {%>
+                <li><form action="/games/<%=game._id%>/tags/<%=tag._id%>" method="POST"><button><%=tag.content%></button></form></li>
+            <%})%>
+        </ul>
+    </li>
+</ul>
 <ul>
-    <% if(game.tags) { %>
-        <% game.tags.forEach(function(tag) { %>
-            <li><%=tag%></li>
+    <% if(game.reviews) { %>
+        Reviews:
+        <% game.reviews.forEach(function(review) { %>
+            <li><% for(let i=0; i<review.rating; i++) {%>🎲<%}%> <br><%=review.content%></li>
         <% }) %>
     <% } %>
 </ul>
+<form action="/games/<%=game._id%>/reviews" method="POST">Add rating:  <select name="rating">
+<option value="1">🎲</option>
+<option value="2">🎲🎲</option>
+<option value="3">🎲🎲🎲</option>
+<option value="4">🎲🎲🎲🎲</option>
+<option value="5">🎲🎲🎲🎲🎲</option>
+</select><br> Add review: <input name="content"><button>Submit</button></form>
+
 <%- include("../partials/footer") %>
