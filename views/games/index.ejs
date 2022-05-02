@@ -1,9 +1,18 @@
 <%- include("../partials/header.ejs") %>
 <a href="/games/new"><button>Add new game</button></a>
 <ul>
-<% games.forEach(function(game) { %>
-<li>Title: <a href="/games/<%= game.id%>"><%= game.title %></a><br>
-Description: <%= game.description %></li>
-<% }) %>
+  <% games.forEach(function(game) { %>
+  <li>
+    Title: <a href="/games/<%= game.id%>"><%= game.title %></a><br />
+    Description: <%= game.description %>
+  </li>
+  Tags:
+  <ul>
+    <% if(!(game.tag)) {%> No tags yet <%} else { %> <%
+    game.tag.forEach(function(tag) { %> <%= console.log(tag) %>
+    <li>Tag1: <%= tag.content%></li>
+    <% })}%>
+  </ul>
+  <%}) %>
 </ul>
 <%- include("../partials/footer.ejs") %>

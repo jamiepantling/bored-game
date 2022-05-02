@@ -12,7 +12,9 @@ const gameSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+    strictPopulate: false
+  },
+
 );
 
 module.exports = mongoose.model("Game", gameSchema);

@@ -1,8 +1,8 @@
 const { redirect } = require("express/lib/response");
 let Game = require("../models/game");
 let Tag = require("../models/tag");
-let User = require("../models/user")
-let Review = require("../models/review")
+let User = require("../models/user");
+let Review = require("../models/review");
 
 module.exports = {
   index,
@@ -13,12 +13,17 @@ module.exports = {
 
 function index(req, res) {
   console.log("Games controller index function");
-  Game.find({}).then(function (games) {
-    res.render("games/index", {
-      games: games,
-      title: "All games",
+  Game.find({})
+    .populate("tag")
+    .then(function (games) {
+      games.forEach(function (game) {
+        console.log(game.tag);
+      });
+      res.render("games/index", {
+        games,
+        title: "All games",
+      });
     });
-  });
 }
 
 function newGame(req, res) {
