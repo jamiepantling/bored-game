@@ -1,0 +1,12 @@
+<%- include("../partials/header.ejs") %>
+<form action="/games" method="POST">
+  Title<input name="title" /><br />
+  Description<input name="description" /><br>
+  Tags:<select name="tag">
+      <% tags.forEach(function(tag) { %>
+        <option value="<%=tag.id%>"><%=tag.content%></option>
+      <% }) %>
+  </select><br>
+  <button>Submit</button>
+</form>
+<%- include("../partials/footer.ejs") %>

@@ -1,0 +1,11 @@
+<%- include("../partials/header") %>
+Title: <%= game.title%><br>
+Description: <%= game.description %>
+<ul>
+    <% if(game.tags) { %>
+        <% game.tags.forEach(function(tag) { %>
+            <li><%=tag%></li>
+        <% }) %>
+    <% } %>
+</ul>
+<%- include("../partials/footer") %>

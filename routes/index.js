@@ -17,8 +17,8 @@ router.get('/oauth2callback', passport.authenticate(
   'google',
   {
     // Change redirect?
-    successRedirect : '/',
-    failureRedirect : '/'
+    successRedirect : '/games',
+    failureRedirect : '/games'
   }
 ));
 
