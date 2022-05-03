@@ -1,12 +1,22 @@
 <%- include("../partials/header.ejs") %>
-<form action="/games" method="POST">
-  Title<input name="title" /><br />
-  Description<input name="description" /><br>
-  Tags:<select name="tag">
+<div class="w-screen h-screen bg-indigo-50"><div class="max-w-md pt-5 mx-auto"><form action="/games" method="POST">
+  <div class="grid grid-cols-1">
+    <label class="block text-gray-700">
+  Title:</label><input class="block w-full rounded-md" type="text" name="title" /><br />
+  <label class="block text-gray-700">Description:</label><textarea class="block rounded-md w-full" type="text" name="description"></textarea><br>
+  <label class="block text-gray-700">Tags:</label><select class="block w-full rounded-md" name="tag">
       <%- tags.map(t => 
         `<option value="${t.id}">${t.content}</option>`
     ).join("") %>
   </select><br>
-  <button>Submit</button>
+  <div class="grid grid-cols-4">
+  <button
+              class="bg-[#fc773a] transition duration-150 ease-in-out hover:bg-[#ef654a] rounded text-white px-6 py-2 font-bold text-s focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+            >
+              Submit
+            </button></div>
 </form>
+</div>
+</div>
+</div>
 <%- include("../partials/footer.ejs") %>

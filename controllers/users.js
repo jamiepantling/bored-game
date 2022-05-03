@@ -6,6 +6,7 @@ module.exports = {
 
 function index(req, res, next) {
     console.log(req.user)
+    console.log("res.locals:" + res.locals.user)
       res.render('index' ,
       {
         user: req.user,

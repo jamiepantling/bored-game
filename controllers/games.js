@@ -1,6 +1,7 @@
 const { redirect } = require("express/lib/response");
 let Game = require("../models/game");
 let Tag = require("../models/tag");
+const user = require("../models/user");
 let User = require("../models/user");
 
 module.exports = {
@@ -12,11 +13,11 @@ module.exports = {
 };
 
 function index(req, res) {
+  console.log("res.locals:" + res.locals.user);
   console.log("Games controller index function");
   Game.find({})
     .populate("tag")
     .then(function (games) {
-      games.forEach(function (game) {});
       res.render("games/index", {
         games,
         title: "All games",
@@ -34,7 +35,8 @@ function newGame(req, res) {
 
 function create(req, res) {
   console.log(req.body);
-  let gameBody = { title: req.body.title, description: req.body.description };
+  console.log("res.locals:" + res.locals.user);
+  let gameBody = { title: req.body.title, description: req.body.description, gameAuthor: res.locals.user._id, gameAuthorName: res.locals.user.name };
   const game = new Game(gameBody);
   Tag.findOne({ _id: req.body.tag }).then(function (tag) {
     game.tag.push(tag._id);
@@ -43,27 +45,33 @@ function create(req, res) {
         console.log(err);
         res.redirect("games/new");
       }
+      console.log(game)
       res.redirect("/games");
     });
   });
 }
 
 async function show(req, res) {
-   let game = await Game.findById(req.params.id).populate("tag")
+  let game = await Game.findById(req.params.id).populate("tag");
   console.log(game);
-  let tags = await Tag.find({})
+  let tags = await Tag.find({});
   res.render("games/show", { game, title: "Game details", tags });
-  }
+}
 
 async function addTag(req, res) {
   let game = await Game.findById(req.params.gameId);
   let newTag = await Tag.findById(req.params.tagId);
   console.log(game, newTag);
-  if (game.tag) {
-    await game.tag.push(newTag._id);
-  } else {
-    game.tag = [newTag._id];
+  let isInArray = game.tag.some(function (tag) {
+    return tag.equals(newTag._id);
+  });
+  if (isInArray) {
+    let index = game.tag.indexOf(newTag._id);
+    game.tag.splice(index, 1);
+    await game.save();
+    return res.redirect(`/games/${req.params.gameId}`);
   }
+  await game.tag.push(newTag._id);
   await game.save();
   console.log(game);
   res.redirect(`/games/${req.params.gameId}`);
