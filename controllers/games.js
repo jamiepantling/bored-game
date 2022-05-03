@@ -55,7 +55,8 @@ async function show(req, res) {
   let game = await Game.findById(req.params.id).populate("tag");
   console.log(game);
   let tags = await Tag.find({});
-  res.render("games/show", { game, title: "Game details", tags });
+  console.log(game.reviews, req.user.id)
+  res.render("games/show", { game, title: "Game details", tags, user: req.user });
 }
 
 async function addTag(req, res) {

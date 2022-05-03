@@ -4,7 +4,9 @@ const passport = require('passport');
 const usersCtrl = require("../controllers/users")
 
 /* GET home page. */
-router.get('/', usersCtrl.index);
+router.get('/', function(req, res) {
+  res.render("index", {title: "Bored? Game!"})
+});
 
 router.get('/auth/google', passport.authenticate(
   'google',

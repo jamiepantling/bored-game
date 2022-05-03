@@ -10,5 +10,6 @@ router.get("/:id", gamesCtrl.show)
 router.post("/", gamesCtrl.create)
 router.post("/:id/reviews", reviewsCtrl.create)
 router.post("/:gameId/tags/:tagId", gamesCtrl.addTag)
+router.delete("/reviews/:id", reviewsCtrl.delete)
 
 module.exports = router;

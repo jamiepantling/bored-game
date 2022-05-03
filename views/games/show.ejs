@@ -1,48 +1,88 @@
 <%- include("../partials/header") %>
-<div class="w-screen h-screen bg-indigo-50 py-4">
-<div class="bg-white shadow overflow-hidden sm:rounded-lg max-w-screen-sm mx-auto">
+<div class="bg-white shadow overflow-hidden mt-3 sm:rounded-lg max-w-screen-sm mx-auto">
     <div class="px-4 py-5 sm:px-6">
-      <h3 class="text-lg leading-6 font-medium text-gray-900"><%=game.title%></h3>
-      
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+            <%=game.title%>
+        </h3>
     </div>
     <div class="border-t border-gray-200">
-      <dl>
-        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Title</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%=game.title%></dd>
+        <div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <div class="text-sm font-medium text-gray-500">Title</div>
+                <div class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%=game.title%></div>
+            </div>
+            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <div class="text-sm font-medium text-gray-500">Description</div>
+                <div class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%=game.description%></div>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <div class="text-sm font-medium text-gray-500">Tags</div>
+                <div class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <% if(game.tag) { %>
+                        <% game.tag.forEach(function(tag) { %>
+                        <div class="bg-green-100 text-green-800 text-xs inline font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900"><%=tag.content%></div>
+                        <% }) %>
+                    <% } %>
+                </div>
+            </div>
+            <div class="bg-white px-4 py-5 grid grid-cols-3 gap-4">
+                <div class="text-sm font-medium text-gray-500">Added by</div>
+                <div class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><a href="/users/<%=game.gameAuthor%>"><%=game.gameAuthorName%></a></div>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 grid grid-cols-3 gap-4">
+                <div class="text-sm font-medium text-gray-500">Reviews</div>
+                    <div class="mt-1 text-sm text-gray-900 mt-0 col-span-2">
+                        <% if (!game.reviews) {%>
+                            <div>
+                                No reviews yet
+                            </div> 
+                        <%} else { %>
+                            <% game.reviews.forEach(function(review) { %>
+                                <div class="p-2 shadow rounded bg-white grid m-2 grid-rows-3">
+                                    <div class="text-xl"><%=review.rating%></div>
+                                    <div><%=review.content%></div>
+                                    <div class="flex justify-between">
+                                        <div>
+                                            <%=review.reviewAuthorName%>
+                                        </div>
+                                        <div class="border-2">
+                                            <%if (review.reviewAuthor == user._id) {%>
+                                            <form action="/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                                                <button class="bg-red-500 transition duration-150 ease-in-out hover:bg-red-400 rounded text-white px-3 py-2 text-s focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                                    Delete review
+                                                </button>
+                                            </form>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>                     
+                            <% }) %>
+                        <% } %>
+                        <br>
+                        <div>
+                            <form action="/games/<%=game._id%>/reviews" method="POST">
+                                <div class="text-gray-500 font-bold">Add review</div><br>
+                                
+                                <select name="rating">
+                                    <option value="1">🎲</option>
+                                    <option value="2">🎲🎲</option>
+                                    <option value="3">🎲🎲🎲</option>
+                                    <option value="4">🎲🎲🎲🎲</option>
+                                    <option value="5">🎲🎲🎲🎲🎲</option>
+                                </select><br>
+                                <textarea class="block w-full rounded-md my-2" type="text" name="content"></textarea>
+                                <button class="bg-[#fc773a] transition duration-150 ease-in-out hover:bg-[#ef654a] rounded text-white px-6 py-2 font-bold text-s focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#fc773a]">
+                                    Submit
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Description</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%=game.description%></dd>
-        </div>
-        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Tags</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><% if(game.tag) { %>
-
-
-            <% game.tag.forEach(function(tag) { %>
-                <div class="bg-green-100 text-green-800 text-xs inline font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900"><%=tag.content%></div>
-            <% }) %>
-        <% } %></dd>
-        </div>
-        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm font-medium text-gray-500">Added by</dt>
-            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%=game.gameAuthorName%></dd>
-          </div>
-          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm font-medium text-gray-500">Something else</dt>
-            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"></dd>
-          </div>
     </div>
-        
-        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Reviews</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-          </dd>
-        </div>
-      </dl>
-    </div>
-  </div>
+</div>
+
 
 <ul></li>
     <li>Add or remove tags:
@@ -62,12 +102,6 @@
         <% }) %>
     <% } %>
 </ul>
-<form action="/games/<%=game._id%>/reviews" method="POST">Add rating:  <select name="rating">
-<option value="1">🎲</option>
-<option value="2">🎲🎲</option>
-<option value="3">🎲🎲🎲</option>
-<option value="4">🎲🎲🎲🎲</option>
-<option value="5">🎲🎲🎲🎲🎲</option>
-</select><br> Add review: <input name="content"><button>Submit</button></form>
+
 
 <%- include("../partials/footer") %>
