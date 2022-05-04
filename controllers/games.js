@@ -25,12 +25,17 @@ function index(req, res) {
     });
 }
 
-function newGame(req, res) {
+async function newGame(req, res) {
   console.log("Games controller newGame function");
-  return Tag.find({}).then(function (tags) {
-    console.log(tags);
+  let tags = await Tag.find({})
+  tags = tags.sort(function(a,b) {
+    let x = a.content.toLowerCase()
+    let y = b.content.toLowerCase()
+    if (x<y) {return -1}
+    if (x>y) {return 1}
+    return 0  })
+  console.log(tags);
     res.render("games/new", { title: "Add new game", tags });
-  });
 }
 
 async function create(req, res) {

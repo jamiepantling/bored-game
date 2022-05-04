@@ -1,5 +1,5 @@
 <%- include("../partials/header") %>
-<div class="bg-white shadow overflow-hidden mt-3 sm:rounded-lg max-w-screen-sm mx-auto">
+<div class="bg-white shadow overflow-hidden my-3 sm:rounded-lg max-w-screen-sm mx-auto">
     <div class="px-4 py-5 sm:px-6">
         <h3 class="text-lg leading-6 font-medium text-gray-900">
             Game details
@@ -18,11 +18,14 @@
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <div class="text-sm font-medium text-gray-500">Tags</div>
                 <div class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <div>
                     <% if(game.tag) { %>
                         <% game.tag.forEach(function(tag) { %>
-                        <div class="bg-green-100 text-green-800 text-xs inline font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900"><%=tag.content%></div>
+                        <div class="bg-green-100 text-green-800 text-xs inline font-semibold mr-2 px-2.5 py-0.5 rounded "><%=tag.content%></div>
                         <% }) %>
                     <% } %>
+                    </div>
+                   
                 </div>
             </div>
             <div class="bg-white px-4 py-5 grid grid-cols-3 gap-4">
@@ -38,22 +41,28 @@
                             </div> 
                         <%} else { %>
                                                         <% game.reviews.forEach(function(review) { %>
-                                <div class="p-2 shadow rounded bg-white grid m-2 grid-rows-3">
+                                <div class="p-2 shadow rounded bg-white  m-2 flex flex-col">
                                     <div class="text-xl"><%=review.rating%></div>
                                     <div><%=review.content%></div>
                                     <div class="flex justify-between">
                                         <div class="italic">
                                             <%=review.reviewAuthorName%>
                                         </div>
-                                        <div >
-                                            <%if (review.reviewAuthor == user.id) {%>
-                                            <form action="/reviews/<%=review._id%>?_method=DELETE" method="POST">
-                                                <button class="bg-red-500 transition duration-150 ease-in-out hover:bg-red-400 rounded text-white px-3 py-2 text-s focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                                                    Delete review
+                                        
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <%if (review.reviewAuthor == user.id) {%>
+                                            <a href="/games/<%=game._id%>/reviews/<%=review._id%>">
+                                                <button class="bg-green-500 mr-1 transition duration-150 ease-in-out hover:bg-green-400 rounded text-white px-3 py-2 text-s focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                                    Edit review
                                                 </button>
-                                            </form>
-                                            <% } %>
-                                        </div>
+                                            </a>
+                                            <form action="/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                                            <button class="bg-red-500 transition duration-150 ease-in-out hover:bg-red-400 rounded text-white px-3 py-2 text-s focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                                Delete review
+                                            </button>
+                                        </form>
+                                        <% } %>
                                     </div>
                                 </div>                     
                             <% }) %>
@@ -83,17 +92,6 @@
     </div>
 </div>
 
-
-<ul></li>
-    <li>Add or remove tags:
-        <ul>
-            <%tags.forEach(function(tag) {%>
-                <form action="/games/<%=game._id%>/tags/<%=tag._id%>" method="POST"><button class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900"><%=tag.content%></button></form>
-            <%})%>
-        </ul>
-    </li>
-</ul>
-</ul>
 
 
 

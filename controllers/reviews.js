@@ -7,6 +7,7 @@ let User = require("../models/user");
 module.exports = {
   create,
   delete: deleteOne,
+  show
 };
 
 async function create(req, res) {
@@ -27,4 +28,10 @@ async function deleteOne(req, res) {
   game.reviews[index].remove();
   await game.save();
   res.redirect(`/games/${game._id}`);
+}
+
+async function show(req, res) {
+let game = await Game.findById(req.params.gameId)
+let review = game.reviews.id(req.params.reviewId)
+res.render("reviews/show", {title: "Edit review", game, review})
 }
