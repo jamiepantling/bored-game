@@ -33,36 +33,22 @@ function newGame(req, res) {
   });
 }
 
-function create(req, res) {
-  console.log(req.body);
-  console.log("res.locals:" + res.locals.user);
-  let gameBody = { title: req.body.title, description: req.body.description, gameAuthor: res.locals.user._id, gameAuthorName: res.locals.user.name };
+async function create(req, res) {
+  let gameBody = { title: req.body.title, description: req.body.description, gameAuthor: req.user.id, gameAuthorName: req.user.name, tag: req.body.tag };
   const game = new Game(gameBody);
-  Tag.findOne({ _id: req.body.tag }).then(function (tag) {
-    game.tag.push(tag._id);
-    game.save(function (err) {
-      if (err) {
-        console.log(err);
-        res.redirect("games/new");
-      }
-      console.log(game)
-      res.redirect("/games");
-    });
-  });
+  await game.save()
+  res.redirect("/games");
 }
 
 async function show(req, res) {
   let game = await Game.findById(req.params.id).populate("tag");
-  console.log(game);
   let tags = await Tag.find({});
-  console.log(game.reviews, req.user.id)
   res.render("games/show", { game, title: "Game details", tags, user: req.user });
 }
 
 async function addTag(req, res) {
   let game = await Game.findById(req.params.gameId);
   let newTag = await Tag.findById(req.params.tagId);
-  console.log(game, newTag);
   let isInArray = game.tag.some(function (tag) {
     return tag.equals(newTag._id);
   });
@@ -74,6 +60,5 @@ async function addTag(req, res) {
   }
   await game.tag.push(newTag._id);
   await game.save();
-  console.log(game);
   res.redirect(`/games/${req.params.gameId}`);
 }

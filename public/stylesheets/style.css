@@ -1211,6 +1211,10 @@ select {
   font-weight: 500;
 }
 
+.italic {
+  font-style: italic;
+}
+
 .leading-6 {
   line-height: 1.5rem;
 }

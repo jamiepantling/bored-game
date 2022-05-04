@@ -1,3 +1,26 @@
 <%- include("../partials/header") %>
-
+<div class="p-3">
+    <ul>
+    <% games.forEach(function(game) { %>
+      <li>
+        <div class="bg-white grid grid-rows-2 items-center max-w-md mx-auto my-4 p-4 shadow rounded-lg">
+          <div>
+            <a class="font-bold" href="/games/<%= game.id%>"><%= game.title %></a><br />
+            <%= game.description %><br/>
+          </div>
+          
+          <div>
+            <a href="/games/<%= game.id%>">
+              <button
+                class="bg-[#fc773a] transition duration-150 ease-in-out hover:bg-[#ef654a] rounded text-white px-4 py-1 font-semibold text-xs focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#fc773a]"
+                >Details
+              </button>
+            </a>
+          </div>
+  
+        </div>
+      </li>
+      <%}) %>
+    </ul>
+  </div>
 <%- include("../partials/footer") %>
