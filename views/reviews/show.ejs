@@ -1,4 +1,27 @@
 <%- include("../partials/header") %>
 
-<div class="bg-white shadow overflow-hidden my-3 sm:rounded-lg max-w-screen-sm mx-auto"></div>
+<div class="bg-white shadow overflow-hidden my-3 sm:rounded-lg max-w-screen-sm mx-auto">
+    <div class="px-4 py-5 sm:px-6">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+            <%= game.title%>
+        </h3>
+    </div>
+    <div class="px-4 py-5 sm:px-6">
+        <form action="/games/<%=game._id%>/reviews/<%=review._id%>?_method=PUT" method="POST">
+            <div class="text-gray-500 font-bold">Edit review</div><br>
+            
+            <select plcaeholder="<%review.rating%>" name="rating">
+                <option value="🎲">🎲</option>
+                <option value="🎲🎲">🎲🎲</option>
+                <option value="🎲🎲🎲">🎲🎲🎲</option>
+                <option value="🎲🎲🎲🎲">🎲🎲🎲🎲</option>
+                <option value="🎲🎲🎲🎲🎲">🎲🎲🎲🎲🎲</option>
+            </select><br>
+            <textarea class="block w-full rounded-md my-2" placeholder="<%=review.content%>" type="text" name="content"></textarea>
+            <button class="bg-[#fc773a] transition duration-150 ease-in-out hover:bg-[#ef654a] rounded text-white px-6 py-2 font-bold text-s focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#fc773a]">
+                Submit
+            </button>
+        </form>
+    </div>
+</div>
 <%- include("../partials/footer") %>

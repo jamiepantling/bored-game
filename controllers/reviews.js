@@ -1,5 +1,6 @@
 const res = require("express/lib/response");
 const { redirect } = require("express/lib/response");
+const { update } = require("../models/game");
 let Game = require("../models/game");
 const user = require("../models/user");
 let User = require("../models/user");
@@ -7,7 +8,8 @@ let User = require("../models/user");
 module.exports = {
   create,
   delete: deleteOne,
-  show
+  show,
+  update: updateOne
 };
 
 async function create(req, res) {
@@ -34,4 +36,14 @@ async function show(req, res) {
 let game = await Game.findById(req.params.gameId)
 let review = game.reviews.id(req.params.reviewId)
 res.render("reviews/show", {title: "Edit review", game, review})
+}
+
+async function updateOne(req, res) {
+  let game = await Game.findById(req.params.gameId)
+  let review = game.reviews.id(req.params.reviewId)
+  if (!(review.reviewAuthor == req.user.id)) return redirect(`/games/${game._id}`)
+  review.content = req.body.content
+  review.rating = req.body.rating
+  await game.save()
+  res.redirect(`/games/${game._id}`)
 }
