@@ -5,6 +5,7 @@ const usersCtrl = require("../controllers/users")
 
 /* GET home page. */
 router.get('/', function(req, res) {
+  if (req.user) return res.redirect("/games/")
   res.render("index", {title: "Bored? Game!"})
 });
 

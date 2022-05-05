@@ -1,15 +1,14 @@
-<%- include("../partials/header.ejs") %>
+<%- include("../partials/header") %>
 <div class="grid grid-cols-3">
-
-  <div class="mt-7 max-w-sm mx-auto">
-    <% tags.forEach(function(tag) { %>
-      <div class="bg-green-100 text-green-800 text-xs m-1 inline-block font-semibold px-2.5 py-0.5 rounded ">
-        <a href="/tags/<%=tag._id%>"><%=tag.content%></a>
-    </div>
-    <% }) %>
-  </div>
-  <div class="p-3 ">
-   
+    <div class="mt-7 max-w-sm mx-auto">
+        <% tags.forEach(function(tag) { %>
+          <div class="bg-green-100 text-green-800 text-xs m-1 inline-block font-semibold px-2.5 py-0.5 rounded ">
+            <a href="/tags/<%=tag._id%>"><%=tag.content%></a>
+        </div>
+        <% }) %>
+      </div>
+<div class="p-3 mx-auto flex flex-col w-md items-center">
+    <div class="text-xl mx-auto my-3 font-bold ">All <%=tag.content%> games</div>
     <ul>
     <% games.forEach(function(game) { %>
       <li>
@@ -33,12 +32,12 @@
               <% } %>
           </div>
           <div class="text-right flex-wrap flex justify-end">
-            <% if((game.tag)) { %> 
+  
             <% game.tag.forEach(function(tag) { %>
             <div class="bg-green-100 text-green-800 text-xs m-1 inline-block font-semibold px-2.5 py-0.5 rounded ">
                 <%=tag.content%>
             </div>
-            <% })} %>
+            <%})%>
           </div>
           <div class="">
             <a href="/games/<%= game.id%>">
@@ -54,7 +53,6 @@
       <%}) %>
     </ul>
   </div>
-  <div>
+  <div></div>
   </div>
-</div>
-<%- include("../partials/footer.ejs") %>
+<%- include("../partials/footer") %>

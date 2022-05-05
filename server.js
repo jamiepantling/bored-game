@@ -7,6 +7,7 @@ var methodOverride = require('method-override')
 var session = require("express-session")
 require('dotenv').config()
 var passport = require('passport');
+const request = require("request")
 
 require('./config/database');
 require('./config/passport');
@@ -15,6 +16,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var gamesRouter = require('./routes/games');
 var reviewsRouter = require('./routes/reviews');
+var tagsRouter = require('./routes/tags');
 
 var app = express();
 
@@ -46,6 +48,7 @@ app.use('/', indexRouter);
 app.use('/games', gamesRouter);
 app.use('/users', usersRouter);
 app.use('/reviews', reviewsRouter);
+app.use('/tags', tagsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
