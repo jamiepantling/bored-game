@@ -8,8 +8,10 @@
       <textarea rows="15" class="block rounded-md w-full" type="text" name="description"><%-game.description%></textarea><br>
       <label class="block text-gray-700">Tags:</label>
       <div class="flex max-w-md flex-wrap justify-start">
-      <% tags.forEach(function(tag) { %>
-        <div class="mr-3 flex items-center text-gray-700"><input type="checkbox" <% if (game.tag.includes(tag._id)) {%> checked <%}%> class="rounded my-2 mr-1"  name="tag" class="inline" value="<%=tag._id%>"><%=tag.content%></div>
+      <% tags.forEach(function(eachTag) { %>
+        <div class="mr-3 flex items-center text-gray-700"><input type="checkbox" <% if (game.tag.some(function (gameTag) { %>
+            <%return gameTag.equals(eachTag.id); %>
+      <%  })) {%> checked <%}%> class="rounded my-2 mr-1"  name="tag" class="inline" value="<%=eachTag._id%>"><%=eachTag.content%></div>
       <% }) %>
     </div>
       <br>

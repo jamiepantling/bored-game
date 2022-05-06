@@ -42,7 +42,6 @@ let game = await Game.findById(req.params.gameId)
 if (!req.user) return res.redirect("/")
 let review = game.reviews.id(req.params.reviewId)
 if (req.user.id != review.reviewAuthor) {
-  console.log("redirecting to game:show")
   return res.redirect(`/games/${game._id}`)
 }
 
