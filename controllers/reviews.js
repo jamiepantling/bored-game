@@ -36,6 +36,7 @@ async function deleteOne(req, res) {
 }
 
 async function show(req, res) {
+  if (!req.user) return res.redirect("/");
   console.log("review show function")
 let game = await Game.findById(req.params.gameId)
 if (!req.user) return res.redirect("/")

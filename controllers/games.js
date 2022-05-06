@@ -1,5 +1,6 @@
 const { redirect } = require("express/lib/response");
 const request = require("request-promise");
+const game = require("../models/game");
 let Game = require("../models/game");
 let Tag = require("../models/tag");
 const user = require("../models/user");
@@ -15,24 +16,34 @@ module.exports = {
   addTag,
   tagSort,
   gameSort,
-  query,
+  edit,
+  update,
+  delete: deleteOne
 };
 
 async function index(req, res) {
-  if (!req.user) return res.redirect("/");
-  console.log("res.locals:" + res.locals.user);
-  console.log("Games controller index function");
+  // Game.find({})
+  // .then(games => getImages(games))
+  // .then(images => console.log(images))
+  // .then(res.send("Has this worked?"))
 
-  let games = await Game.find({}).populate("tag");
-  let tags = await Tag.find({});
-  games = gameSort(games);
-  tags = tagSort(tags);
+  try {
+    if (!req.user) return res.redirect("/");
 
-  res.render("games/index", {
-    games,
-    title: "All games",
-    tags,
-  });
+    let games = await Game.find({}).populate("tag");
+    let tags = await Tag.find({});
+  
+    tags = tagSort(tags);
+    games = gameSort(games)
+
+    res.render("games/index", {
+      games,
+      title: "All games",
+      tags,
+    });
+  } catch (error) {
+    res.send(error);
+  }
 }
 
 async function newGame(req, res) {
@@ -55,7 +66,7 @@ async function create(req, res) {
   };
   const game = new Game(gameBody);
   await game.save();
-  res.redirect("/games");
+  res.redirect(`games/${game._id}`);
 }
 
 async function show(req, res) {
@@ -64,7 +75,23 @@ async function show(req, res) {
   let game = await Game.findById(req.params.id).populate("tag");
   let tags = await Tag.find({});
   let reviews = game.reviews;
-  console.log(reviews);
+  if (!game.picture) {
+    let body = await request(
+      `${rootURL}search?name=${game.title}&client_id=${clientId}`
+    );
+    body = await JSON.parse(body);
+    let image = body.games[0].thumb_url;
+    let description = body.games[0].description;
+    if (image === "https://s3-us-west-1.amazonaws.com/5cc.images/games/empty+box+thumb.jpg") {
+      image = body.games[1].thumb_url
+      description = body.games[1].description
+    }
+    game.picture = image;
+    game.description = description;
+  }   
+  
+  console.log(game)
+  await game.save()
   res.render("games/show", {
     game,
     title: game.title,
@@ -72,6 +99,40 @@ async function show(req, res) {
     reviews,
     user: req.user,
   });
+}
+
+async function edit(req, res) {
+  if (!req.user) return res.redirect("/");
+  
+  let game = await Game.findById(req.params.id).populate("tag");
+  if (req.user.id != game.gameAuthor) {
+    return res.redirect(`/games/${game._id}`)
+  }
+  let tags = await Tag.find({})
+  tags = tagSort(tags)
+  res.render("games/edit", {title: game.title, game, tags})
+}
+
+async function update(req, res) {
+  if (!req.user) return res.redirect("/");
+  let game = await Game.findById(req.params.id)
+  game.title = req.body.title
+  game.description = req.body.description
+  game.tag = req.body.tag
+  await game.save()
+  res.redirect(`/games/${game._id}`);
+
+}
+
+async function deleteOne(req, res) {
+  if (!req.user) return res.redirect("/")
+  let game = await Game.findById(req.params.id);
+  if (req.user.id != game.gameAuthor) {
+    return res.redirect(`/games/${game._id}`)
+  }
+  await game.remove()
+  
+  res.redirect("/games/");
 }
 
 async function addTag(req, res) {
@@ -91,6 +152,9 @@ async function addTag(req, res) {
   await game.save();
   res.redirect(`/games/${req.params.gameId}`);
 }
+
+
+
 
 function tagSort(tags) {
   return (tags = tags.sort(function (a, b) {
@@ -118,19 +182,52 @@ function gameSort(games) {
     return 0;
   }));
 }
-async function query(req, res) {
-  console.log(req.query);
-  console.log("query function");
-  const boardgame = req.query.boardgame;
-  console.log(boardgame);
-  let body = await request(
-    `${rootURL}search?name=${boardgame}&exact=true&client_id=${clientId}`
-  );
-  body = JSON.parse(body);
-  let imgsrc = body.games[1].thumb_url;
-  res.render("games/query", {
-    title: "query",
-    userData: body,
-    imgsrc,
-  });
-}
+
+
+// async function getImages(games) {
+//   let images =[]
+//   games.forEach(async function(game, idx) {
+//   let text = await request(`${rootURL}search?name=${game.title}&client_id=${clientId}`)
+//     images.push(text)
+//     console.log(images)
+//   })
+//   return images
+//  }
+
+// let images =[]
+// games.forEach( function(game, idx) {
+//   let body =  request(
+//     `${rootURL}search?name=${game.title}&client_id=${clientId}`
+//   ).then(function())
+//   body = await JSON.parse(body);
+//   let image = body.games[0].thumb_url
+//   console.log(image)
+//   images.push(image)
+//   console.log(images, idx)
+// })
+
+// async function index(req, res) {
+//   try {
+
+//   if (!req.user) return res.redirect("/");
+
+//   console.log("Games controller index function");
+
+//   let games = await Game.find({}).populate("tag");
+
+//   let tags = await Tag.find({});
+//   games = gameSort(games);
+//   tags = tagSort(tags);
+
+//   let images = getImages(games)
+
+//   res.render("games/index", {
+//     games,
+//     title: "All games",
+//     tags,
+//     images
+//   });
+//   } catch (error) {
+//     res.send(error)
+//   }
+// }

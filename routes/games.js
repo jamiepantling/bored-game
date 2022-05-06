@@ -6,8 +6,11 @@ const reviewsCtrl = require("../controllers/reviews")
 
 router.get("/", gamesCtrl.index)
 router.get("/new", gamesCtrl.new)
-router.get("/query/", gamesCtrl.query)
+
 router.get("/:id", gamesCtrl.show)
+router.put("/:id", gamesCtrl.update)
+router.delete("/:id", gamesCtrl.delete)
+router.get("/:id/edit", gamesCtrl.edit)
 router.get("/:gameId/reviews/:reviewId", reviewsCtrl.show)
 
 router.put("/:gameId/reviews/:reviewId", reviewsCtrl.update)

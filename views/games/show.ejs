@@ -4,16 +4,21 @@
         <h3 class="text-lg leading-6 font-medium text-gray-900">
             Game details
         </h3>
+        <div class="flex items-center justify-center max-h-72  text-center overflow-hidden">
+            <img class="max-h-72" src="<%=game.picture%>">
+          </div>
     </div>
     <div class="border-t border-gray-200">
         <div>
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <div class="text-sm font-medium text-gray-500">Title</div>
                 <div class="mt-1 font-bold text-gray-900 sm:mt-0 sm:col-span-2"><%=game.title%></div>
+            
             </div>
+           
             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <div class="text-sm font-medium text-gray-500">Description</div>
-                <div class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%=game.description%></div>
+                <div class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%-game.description%></div>
             </div>
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <div class="text-sm font-medium text-gray-500">Tags</div>
@@ -30,7 +35,21 @@
             </div>
             <div class="bg-white px-4 py-5 grid grid-cols-3 gap-4">
                 <div class="text-sm font-medium text-gray-500">Added by</div>
-                <div class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><a href="/users/<%=game.gameAuthor%>"><%=game.gameAuthorName%></a></div>
+                <div class="mt-1 text-sm text-gray-900 flex justify-between items-center sm:mt-0 sm:col-span-2">
+                    <a href="/users/<%=game.gameAuthor%>"><%=game.gameAuthorName%></a>
+                    <%if (game.gameAuthor == user.id) {%>
+                        <a href="/games/<%=game._id%>/edit">
+                            <button class="bg-green-500 mr-1 transition duration-150 ease-in-out hover:bg-green-400 rounded text-white px-3 py-2 text-s focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                Edit game
+                            </button>
+                        </a>
+                        <form action="/games/<%=game._id%>?_method=DELETE" method="POST">
+                            <button class="bg-red-500 transition duration-150 ease-in-out hover:bg-red-400 rounded text-white px-3 py-2 text-s focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                Delete game
+                            </button>
+                        </form>
+                        <%}%>
+                </div>
             </div>
             <div class="bg-gray-50 px-4 py-5 grid grid-cols-3 gap-4">
                 <div class="text-sm font-medium text-gray-500">Reviews</div>

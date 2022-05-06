@@ -19,8 +19,11 @@
                 <%= game.title %>
               </a>
             </div>
+            <div class="flex items-center justify-center max-h-72  text-center overflow-hidden">
+              <a class="font-bold" href="/games/<%= game.id%>"><img class="max-h-72" src="<%=game.picture%>"></a>
+            </div>
             <div>
-              <%= game.description %>
+              <%- game.description %>
             </div>
           </div>
           <div class="py-1">

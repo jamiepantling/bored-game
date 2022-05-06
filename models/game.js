@@ -19,7 +19,8 @@ const gameSchema = new Schema(
     gameAuthor: { type: Schema.Types.ObjectId, ref: "gameAuthor" },
     gameAuthorName: String,
     tag: [{ type: Schema.Types.ObjectId, ref: "Tag" }],
-    reviews: [reviewSchema]
+    reviews: [reviewSchema],
+    picture: String,
   },
   {
     timestamps: true,
