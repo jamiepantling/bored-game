@@ -7,6 +7,9 @@ module.exports = {
     show
 }
 
+// ** Code for future functionality 
+// for checking user's contributions **
+
 function index (req, res) {
   if (!req.user) return res.redirect("/")
   User.find({}).then(function (users) {
