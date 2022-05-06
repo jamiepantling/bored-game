@@ -43,10 +43,11 @@ Go ahead and [check out Bored? Game!](https://boredgameapp.herokuapp.com/)
 Future planned improvements to the app:
 
 * Make the app responsive so you can use it better on mobile devices
-* Ability to search the database by name
+* Ability to search the database by game title
 * Search by two or more tags at the same time
 * Share game details to friends
 * Average ratings of games
+* Show users' contributions
 
 ## Acknowledgements
 

@@ -22,11 +22,6 @@ module.exports = {
 };
 
 async function index(req, res) {
-  // Game.find({})
-  // .then(games => getImages(games))
-  // .then(images => console.log(images))
-  // .then(res.send("Has this worked?"))
-
   try {
     if (!req.user) return res.redirect("/");
 
@@ -48,10 +43,8 @@ async function index(req, res) {
 
 async function newGame(req, res) {
   if (!req.user) return res.redirect("/");
-  console.log("Games controller newGame function");
   let tags = await Tag.find({});
   tags = tagSort(tags);
-  console.log(tags);
   res.render("games/new", { title: "Add new game", tags });
 }
 
@@ -70,7 +63,6 @@ async function create(req, res) {
 }
 
 async function show(req, res) {
-  console.log("game show function");
   if (!req.user) return res.redirect("/");
   let game = await Game.findById(req.params.id).populate("tag");
   let tags = await Tag.find({});
@@ -82,9 +74,9 @@ async function show(req, res) {
     body = await JSON.parse(body);
     if (body.games.length) {
       let image = body.games[0].thumb_url;
-      let description = ""      
-      if(!game.description) {
-       description = body.games[0].description;
+      let description = "";
+      if (!game.description) {
+        description = body.games[0].description;
       }
       if (
         image ===
@@ -94,11 +86,10 @@ async function show(req, res) {
         description = body.games[1].description;
       }
       game.picture = image;
-      if(!game.description) game.description = description;
+      if (!game.description) game.description = description;
     }
   }
 
-  console.log(game);
   await game.save();
   res.render("games/show", {
     game,
@@ -186,6 +177,8 @@ function gameSort(games) {
     return 0;
   }));
 }
+
+// ** Below code saved for future problem solving **
 
 // async function getImages(games) {
 //   let images =[]
