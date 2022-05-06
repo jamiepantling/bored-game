@@ -18,7 +18,7 @@ module.exports = {
   gameSort,
   edit,
   update,
-  delete: deleteOne
+  delete: deleteOne,
 };
 
 async function index(req, res) {
@@ -32,9 +32,9 @@ async function index(req, res) {
 
     let games = await Game.find({}).populate("tag");
     let tags = await Tag.find({});
-  
+
     tags = tagSort(tags);
-    games = gameSort(games)
+    games = gameSort(games);
 
     res.render("games/index", {
       games,
@@ -80,18 +80,23 @@ async function show(req, res) {
       `${rootURL}search?name=${game.title}&client_id=${clientId}`
     );
     body = await JSON.parse(body);
-    let image = body.games[0].thumb_url;
-    let description = body.games[0].description;
-    if (image === "https://s3-us-west-1.amazonaws.com/5cc.images/games/empty+box+thumb.jpg") {
-      image = body.games[1].thumb_url
-      description = body.games[1].description
+    if (body.games.length) {
+      let image = body.games[0].thumb_url;
+      let description = body.games[0].description;
+      if (
+        image ===
+        "https://s3-us-west-1.amazonaws.com/5cc.images/games/empty+box+thumb.jpg"
+      ) {
+        image = body.games[1].thumb_url;
+        description = body.games[1].description;
+      }
+      game.picture = image;
+      game.description = description;
     }
-    game.picture = image;
-    game.description = description;
-  }   
-  
-  console.log(game)
-  await game.save()
+  }
+
+  console.log(game);
+  await game.save();
   res.render("games/show", {
     game,
     title: game.title,
@@ -103,35 +108,34 @@ async function show(req, res) {
 
 async function edit(req, res) {
   if (!req.user) return res.redirect("/");
-  
+
   let game = await Game.findById(req.params.id).populate("tag");
   if (req.user.id != game.gameAuthor) {
-    return res.redirect(`/games/${game._id}`)
+    return res.redirect(`/games/${game._id}`);
   }
-  let tags = await Tag.find({})
-  tags = tagSort(tags)
-  res.render("games/edit", {title: game.title, game, tags})
+  let tags = await Tag.find({});
+  tags = tagSort(tags);
+  res.render("games/edit", { title: game.title, game, tags });
 }
 
 async function update(req, res) {
   if (!req.user) return res.redirect("/");
-  let game = await Game.findById(req.params.id)
-  game.title = req.body.title
-  game.description = req.body.description
-  game.tag = req.body.tag
-  await game.save()
+  let game = await Game.findById(req.params.id);
+  game.title = req.body.title;
+  game.description = req.body.description;
+  game.tag = req.body.tag;
+  await game.save();
   res.redirect(`/games/${game._id}`);
-
 }
 
 async function deleteOne(req, res) {
-  if (!req.user) return res.redirect("/")
+  if (!req.user) return res.redirect("/");
   let game = await Game.findById(req.params.id);
   if (req.user.id != game.gameAuthor) {
-    return res.redirect(`/games/${game._id}`)
+    return res.redirect(`/games/${game._id}`);
   }
-  await game.remove()
-  
+  await game.remove();
+
   res.redirect("/games/");
 }
 
@@ -152,9 +156,6 @@ async function addTag(req, res) {
   await game.save();
   res.redirect(`/games/${req.params.gameId}`);
 }
-
-
-
 
 function tagSort(tags) {
   return (tags = tags.sort(function (a, b) {
@@ -182,7 +183,6 @@ function gameSort(games) {
     return 0;
   }));
 }
-
 
 // async function getImages(games) {
 //   let images =[]
