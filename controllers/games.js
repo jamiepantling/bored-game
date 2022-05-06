@@ -82,7 +82,10 @@ async function show(req, res) {
     body = await JSON.parse(body);
     if (body.games.length) {
       let image = body.games[0].thumb_url;
-      let description = body.games[0].description;
+      let description = ""      
+      if(!game.description) {
+       description = body.games[0].description;
+      }
       if (
         image ===
         "https://s3-us-west-1.amazonaws.com/5cc.images/games/empty+box+thumb.jpg"
@@ -91,7 +94,7 @@ async function show(req, res) {
         description = body.games[1].description;
       }
       game.picture = image;
-      game.description = description;
+      if(!game.description) game.description = description;
     }
   }
 
