@@ -1,5 +1,7 @@
 # Bored? Game!
 
+[(Go straight to Bored? Game!)](https://boredgameapp.herokuapp.com/)
+
 ## Introduction
 
 *Bored? Game!* is a web app to help you work out what board game to play. 
