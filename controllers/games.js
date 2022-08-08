@@ -181,30 +181,33 @@ function gameSort(games) {
 // ** Below code saved for future problem solving **
 
 // async function getImages(games) {
-//   let images =[]
-//   games.forEach(async function(game, idx) {
-//   let text = await request(`${rootURL}search?name=${game.title}&client_id=${clientId}`)
-//     images.push(text)
-//     console.log(images)
-//   })
-//   return images
-//  }
-
-// let images =[]
-// games.forEach( function(game, idx) {
-//   let body =  request(
-//     `${rootURL}search?name=${game.title}&client_id=${clientId}`
-//   ).then(function())
-//   body = await JSON.parse(body);
-//   let image = body.games[0].thumb_url
-//   console.log(image)
-//   images.push(image)
-//   console.log(images, idx)
-// })
-
-// async function index(req, res) {
-//   try {
-
+  //   let images =[]
+  //   games.forEach(async function(game, idx) {
+    //   let text = await request(`${rootURL}search?name=${game.title}&client_id=${clientId}`)
+    //     images.push(text)
+    //     console.log(images)
+    //   })
+    //   return images
+    // //  }
+    
+    // let images =[]
+    // games.forEach( function(game, idx) {
+    //   let body =  request(
+    //     `${rootURL}search?name=${game.title}&client_id=${clientId}`
+    //     ).then(function(err){
+    //       body = await JSON.parse(body);
+    //       let image = body.games[0].thumb_url
+    //       console.log(image)
+    //       console.log(images, idx)})
+    //       images.push(image)
+    //     })
+        
+        
+        // console.log(images)
+        
+        // async function index(req, res) {
+          //   try {
+            
 //   if (!req.user) return res.redirect("/");
 
 //   console.log("Games controller index function");
