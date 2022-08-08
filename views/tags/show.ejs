@@ -1,6 +1,6 @@
 <%- include("../partials/header") %>
-<div class="grid grid-cols-3">
-    <div class="mt-7 max-w-sm mx-auto">
+<div class="grid grid-cols-1">
+    <div class="mt-7 max-w-md mx-auto">
         <% tags.forEach(function(tag) { %>
           <div class="bg-green-100 text-green-800 text-xs m-1 inline-block font-semibold px-2.5 py-0.5 rounded ">
             <a href="/tags/<%=tag._id%>"><%=tag.content%></a>
