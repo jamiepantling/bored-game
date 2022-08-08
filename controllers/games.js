@@ -137,6 +137,7 @@ async function addTag(req, res) {
   if (!req.user) return res.redirect("/");
   let game = await Game.findById(req.params.gameId);
   let newTag = await Tag.findById(req.params.tagId);
+  
   let isInArray = game.tag.some(function (tag) {
     return tag.equals(newTag._id);
   });
@@ -146,11 +147,12 @@ async function addTag(req, res) {
     await game.save();
     return res.redirect(`/games/${req.params.gameId}`);
   }
-  await game.tag.push(newTag._id);
+  game.tag.push(newTag._id);
   await game.save();
   res.redirect(`/games/${req.params.gameId}`);
 }
 
+// Used to alphabeticise tags
 function tagSort(tags) {
   return (tags = tags.sort(function (a, b) {
     let x = a.content.toLowerCase();
@@ -164,6 +166,7 @@ function tagSort(tags) {
     return 0;
   }));
 }
+// Used to alphabeticise game titles
 function gameSort(games) {
   return (games = games.sort(function (a, b) {
     let x = a.title.toLowerCase();

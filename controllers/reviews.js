@@ -38,12 +38,10 @@ async function deleteOne(req, res) {
 async function show(req, res) {
   if (!req.user) return res.redirect("/");
   let game = await Game.findById(req.params.gameId);
-  if (!req.user) return res.redirect("/");
   let review = game.reviews.id(req.params.reviewId);
   if (req.user.id != review.reviewAuthor) {
     return res.redirect(`/games/${game._id}`);
   }
-
   res.render("reviews/show", { title: "Edit review", game, review });
 }
 
