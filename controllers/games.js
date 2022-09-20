@@ -32,6 +32,7 @@ async function index(req, res) {
     games = gameSort(games);
 
     res.render("games/index", {
+      user: req.user,
       games,
       title: "All games",
       tags,
@@ -109,7 +110,7 @@ async function edit(req, res) {
   if (req.user.id != game.gameAuthor) {
     return res.redirect(`/games/${game._id}`);
   }
-  // Otherwise get the tags from the database, sort them, and render the 
+  // Otherwise get the tags from the database, sort them, and render the
   // edit page with the game's title, it's data and the sorted tags
   let tags = await Tag.find({});
   tags = tagSort(tags);
@@ -198,33 +199,32 @@ function gameSort(games) {
 // ** Below code saved for future problem solving **
 
 // async function getImages(games) {
-  //   let images =[]
-  //   games.forEach(async function(game, idx) {
-    //   let text = await request(`${rootURL}search?name=${game.title}&client_id=${clientId}`)
-    //     images.push(text)
-    //     console.log(images)
-    //   })
-    //   return images
-    // //  }
-    
-    // let images =[]
-    // games.forEach( function(game, idx) {
-    //   let body =  request(
-    //     `${rootURL}search?name=${game.title}&client_id=${clientId}`
-    //     ).then(function(err){
-    //       body = await JSON.parse(body);
-    //       let image = body.games[0].thumb_url
-    //       console.log(image)
-    //       console.log(images, idx)})
-    //       images.push(image)
-    //     })
-        
-        
-        // console.log(images)
-        
-        // async function index(req, res) {
-          //   try {
-            
+//   let images =[]
+//   games.forEach(async function(game, idx) {
+//   let text = await request(`${rootURL}search?name=${game.title}&client_id=${clientId}`)
+//     images.push(text)
+//     console.log(images)
+//   })
+//   return images
+// //  }
+
+// let images =[]
+// games.forEach( function(game, idx) {
+//   let body =  request(
+//     `${rootURL}search?name=${game.title}&client_id=${clientId}`
+//     ).then(function(err){
+//       body = await JSON.parse(body);
+//       let image = body.games[0].thumb_url
+//       console.log(image)
+//       console.log(images, idx)})
+//       images.push(image)
+//     })
+
+// console.log(images)
+
+// async function index(req, res) {
+//   try {
+
 //   if (!req.user) return res.redirect("/");
 
 //   console.log("Games controller index function");

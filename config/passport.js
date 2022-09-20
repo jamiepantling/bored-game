@@ -11,6 +11,8 @@ passport.use(
       callbackURL: process.env.GOOGLE_CALLBACK,
     },
     function (accessToken, refreshToken, profile, cb) {
+      let picture = profile._json['picture']
+      console.log("picture: ", picture)
       User.findOne({ googleId: profile.id }, function (err, user) {
         if (err) return cb(err);
         if (user) {
@@ -20,7 +22,7 @@ passport.use(
             name: profile.displayName,
             email: profile.emails[0].value,
             googleId: profile.id,
-            picture: profile.picture,
+            picture: picture,
           });
           newUser.save(function (err) {
             if (err) return cb(err);
