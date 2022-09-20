@@ -101,24 +101,32 @@ async function show(req, res) {
 }
 
 async function edit(req, res) {
+  // If there's no user logged in, redirect to the login/signup page
   if (!req.user) return res.redirect("/");
-
+  // Find specific game in database and populate the tags rather than just IDs
   let game = await Game.findById(req.params.id).populate("tag");
+  // If the user isn't the creator, redirect to the game's show page
   if (req.user.id != game.gameAuthor) {
     return res.redirect(`/games/${game._id}`);
   }
+  // Otherwise get the tags from the database, sort them, and render the 
+  // edit page with the game's title, it's data and the sorted tags
   let tags = await Tag.find({});
   tags = tagSort(tags);
   res.render("games/edit", { title: game.title, game, tags });
 }
 
 async function update(req, res) {
+  //If there's no user logged in, redirect to the login/signup page
   if (!req.user) return res.redirect("/");
+  // Find specific game in database
   let game = await Game.findById(req.params.id);
+  // Associate title, description and tag from form with specific game, and save
   game.title = req.body.title;
   game.description = req.body.description;
   game.tag = req.body.tag;
   await game.save();
+  // Redirect to the game's show page
   res.redirect(`/games/${game._id}`);
 }
 
@@ -132,23 +140,29 @@ async function deleteOne(req, res) {
 
   res.redirect("/games/");
 }
-
+// This is actually a toggle tag function - consider renaming
 async function addTag(req, res) {
+  // If there's no user logged in, redirect to the login/signup page
   if (!req.user) return res.redirect("/");
+  // Get the appropriate game and tag from the database
   let game = await Game.findById(req.params.gameId);
   let newTag = await Tag.findById(req.params.tagId);
-  
+  // Find out if newTag's id is already associated with that game
+  // Will return true or false
   let isInArray = game.tag.some(function (tag) {
     return tag.equals(newTag._id);
   });
+  // If it is, unassociate it with that game and redirect back to the game's show page
   if (isInArray) {
     let index = game.tag.indexOf(newTag._id);
     game.tag.splice(index, 1);
     await game.save();
     return res.redirect(`/games/${req.params.gameId}`);
   }
+  // Otherwise, associate the game with the tag's ID.
   game.tag.push(newTag._id);
   await game.save();
+  // And redirect back to the game's show page
   res.redirect(`/games/${req.params.gameId}`);
 }
 
