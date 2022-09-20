@@ -11,3 +11,15 @@
     background-position: center;
     background-repeat: no-repeat;
 }
+
+.google {
+  background-image: url("../images/google-button.png");
+  width: 191px;
+  height: 46px;
+}
+.google:hover {
+  background-image: url("../images/google-focus.png");
+}
+.google:active {
+  background-image: url("../images/google-pressed.png");
+}

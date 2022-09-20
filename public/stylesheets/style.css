@@ -641,14 +641,6 @@ select{
   --tw-backdrop-sepia:  ;
 }
 
-.absolute{
-  position: absolute;
-}
-
-.top-0{
-  top: 0px;
-}
-
 .col-span-2{
   grid-column: span 2 / span 2;
 }
@@ -738,28 +730,16 @@ select{
   display: grid;
 }
 
-.h-full{
-  height: 100%;
-}
-
 .h-screen{
   height: 100vh;
-}
-
-.h-52{
-  height: 13rem;
-}
-
-.h-36{
-  height: 9rem;
 }
 
 .h-28{
   height: 7rem;
 }
 
-.h-24{
-  height: 6rem;
+.h-full{
+  height: 100%;
 }
 
 .max-h-72{
@@ -770,34 +750,12 @@ select{
   width: 100%;
 }
 
-.w-screen{
-  width: 100vw;
-}
-
-.w-10{
-  width: 2.5rem;
-}
-
-.w-60{
-  width: 15rem;
-}
-
-.max-w-fit{
-  max-width: -webkit-fit-content;
-  max-width: -moz-fit-content;
-  max-width: fit-content;
-}
-
 .max-w-md{
   max-width: 28rem;
 }
 
 .max-w-screen-sm{
   max-width: 640px;
-}
-
-.cursor-pointer{
-  cursor: pointer;
 }
 
 .grid-cols-7{
@@ -868,10 +826,6 @@ select{
   border-radius: 0.5rem;
 }
 
-.border-4{
-  border-width: 4px;
-}
-
 .border-t{
   border-top-width: 1px;
 }
@@ -929,10 +883,6 @@ select{
 .bg-indigo-50{
   --tw-bg-opacity: 1;
   background-color: rgb(238 242 255 / var(--tw-bg-opacity));
-}
-
-.p-5{
-  padding: 1.25rem;
 }
 
 .p-3{
@@ -1136,8 +1086,18 @@ select{
   background-repeat: no-repeat;
 }
 
-.hover\:cursor-pointer:hover{
-  cursor: pointer;
+.google {
+  background-image: url("../images/google-button.png");
+  width: 191px;
+  height: 46px;
+}
+
+.google:hover {
+  background-image: url("../images/google-focus.png");
+}
+
+.google:active {
+  background-image: url("../images/google-pressed.png");
 }
 
 .hover\:bg-indigo-600:hover{
@@ -1158,11 +1118,6 @@ select{
 .hover\:bg-red-400:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(248 113 113 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-gray-700:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
 }
 
 .focus\:outline-none:focus{
