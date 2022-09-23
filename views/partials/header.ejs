@@ -33,15 +33,16 @@
 
       <div class="flex justify-around align-middle mr-5 ">
         <% if (user) { %>
-        <div class="flex align-middle justify-center ml-5 my-auto">
-          <a class="sm:text-xl text-md font-bold" href="/logout">Log Out</a>
-        </div>
-        <div class="ml-5">
+        
+        <div class="ml-5 dropdown">
           <img
             referrerpolicy="no-referrer"
             class="rounded-full h-16 border border-gray-500"
             src="<%=user.picture%>"
           />
+          <div class="dropdown-option flex align-middle justify-center ml-5 my-auto">
+            <a class="sm:text-xl text-md font-bold" href="/logout">Log Out</a>
+          </div>
         </div>
 
         <% } else { %>

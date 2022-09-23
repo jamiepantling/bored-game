@@ -33,7 +33,7 @@
 
         <div class="text-right col-span-2 px-4">
           <% if (user) { %>
-          <a class="sm:text-xl text-md font-bold" href="/logout">Log Out</a>
+          <a class="sm:text-xl text-green-400 text-md font-bold" href="/logout">Log Out</a>
           <% }%>
         </div>
       </div>
@@ -41,8 +41,9 @@
       <div class="h-full flex-col flex align-middle justify-center">
         
           <a href="/auth/google" ><div
-            class="mx-auto google"
+            class="mx-auto google dropdown"
           ></div></a>
+          <div class="dropdown-option"> </div>
         
       </div>
     </div>

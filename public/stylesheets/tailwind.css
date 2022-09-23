@@ -23,3 +23,9 @@
 .google:active {
   background-image: url("../images/google-pressed.png");
 }
+.dropdown-option {
+  display: none
+}
+.dropdown:hover .dropdown-option {
+    display: block
+}
