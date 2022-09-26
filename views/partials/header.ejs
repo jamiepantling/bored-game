@@ -16,13 +16,13 @@
         <% if (user) { %>
         <a href="/games"
           ><button
-            class="mx-2 md:my-2 my-1 w-full bg-indigo-800 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white md:px-6 px-2 py-2 font-bold text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+            class="mx-2 md:my-2 my-1 w-full bg-indigo-800 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white md:px-6 px-2 py-2 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
           >
             All games
           </button></a
         ><a href="/games/new"
           ><button
-            class="mx-2 md:my-2 my:1 w-full bg-indigo-800 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white md:px-6 px-2 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 font-bold"
+            class="mx-2 md:my-2 my:1 w-full bg-indigo-800 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white md:px-6 px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 font-bold"
           >
             + Add game
           </button></a
@@ -35,19 +35,19 @@
         <%=title%>
       </div>
 
-      <div class="dropdown-container w-28 flex flex-none justify-end align-middle mr-2 md:mr-5">
+      <div class="dropdown-container w-28  flex flex-none justify-end items-center mr-2 md:mr-5">
         <% if (user) { %>
 
-        <div class="md:ml-5 dropdown">
+        <div class="w-28 h-16 flex justify-center items-center flex-col dropdown">
           <img
             referrerpolicy="no-referrer"
-            class="rounded-full h-16 w-16 border border-gray-500"
+            class=" cursor-pointer rounded-full h-16 w-16 border border-gray-500"
             src="<%=user.picture%>"
           />
           <div
-            class="dropdown-option flex align-middle justify-center ml-5 my-auto"
+            class="dropdown-option relative bg-indigo-800 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white md:px-6 px-2 py-2 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
           >
-            <a class="sm:text-xl text-md font-bold" href="/logout">Log Out</a>
+            <a class="text-md font-bold" href="/logout">Log Out</a>
           </div>
         </div>
 

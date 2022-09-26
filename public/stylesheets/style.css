@@ -641,6 +641,38 @@ select{
   --tw-backdrop-sepia:  ;
 }
 
+.absolute{
+  position: absolute;
+}
+
+.relative{
+  position: relative;
+}
+
+.right-4{
+  right: 1rem;
+}
+
+.top-6{
+  top: 1.5rem;
+}
+
+.top-12{
+  top: 3rem;
+}
+
+.top-16{
+  top: 4rem;
+}
+
+.right-3{
+  right: 0.75rem;
+}
+
+.top-8{
+  top: 2rem;
+}
+
 .col-span-2{
   grid-column: span 2 / span 2;
 }
@@ -732,6 +764,10 @@ select{
   margin-left: 1.25rem;
 }
 
+.mt-2{
+  margin-top: 0.5rem;
+}
+
 .block{
   display: block;
 }
@@ -768,6 +804,18 @@ select{
   height: 4rem;
 }
 
+.h-3{
+  height: 0.75rem;
+}
+
+.h-5{
+  height: 1.25rem;
+}
+
+.h-7{
+  height: 1.75rem;
+}
+
 .max-h-72{
   max-height: 18rem;
 }
@@ -802,6 +850,10 @@ select{
 
 .shrink{
   flex-shrink: 1;
+}
+
+.cursor-pointer{
+  cursor: pointer;
 }
 
 .grid-cols-7{
@@ -946,6 +998,11 @@ select{
 .bg-indigo-50{
   --tw-bg-opacity: 1;
   background-color: rgb(238 242 255 / var(--tw-bg-opacity));
+}
+
+.bg-slate-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
 }
 
 .p-3{
@@ -1173,13 +1230,8 @@ select{
 }
 
 .dropdown:hover .dropdown-option {
-  display: block
+  display:inline-block
 }
-
-/* 
-@media screen and (max-width: 500px) {
-
-} */
 
 .index-image {
   max-height: 300px
