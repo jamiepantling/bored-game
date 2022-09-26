@@ -808,6 +808,20 @@ select{
   max-width: 640px;
 }
 
+.max-w-fit{
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+}
+
+.max-w-screen-lg{
+  max-width: 1024px;
+}
+
+.max-w-sm{
+  max-width: 24rem;
+}
+
 .flex-none{
   flex: none;
 }
@@ -1362,6 +1376,18 @@ select{
     width: auto;
   }
 
+  .md\:max-w-screen-lg{
+    max-width: 1024px;
+  }
+
+  .md\:max-w-lg{
+    max-width: 32rem;
+  }
+
+  .md\:max-w-2xl{
+    max-width: 42rem;
+  }
+
   .md\:px-6{
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -1385,5 +1411,11 @@ select{
   .md\:text-lg{
     font-size: 1.125rem;
     line-height: 1.75rem;
+  }
+}
+
+@media (min-width: 1024px){
+  .lg\:max-w-4xl{
+    max-width: 56rem;
   }
 }
