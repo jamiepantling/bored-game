@@ -641,6 +641,22 @@ select{
   --tw-backdrop-sepia:  ;
 }
 
+.absolute{
+  position: absolute;
+}
+
+.relative{
+  position: relative;
+}
+
+.top-24{
+  top: 6rem;
+}
+
+.left-0{
+  left: 0px;
+}
+
 .col-span-2{
   grid-column: span 2 / span 2;
 }
@@ -687,11 +703,6 @@ select{
   margin-bottom: 0.25rem;
 }
 
-.my-auto{
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
 .ml-3{
   margin-left: 0.75rem;
 }
@@ -728,10 +739,6 @@ select{
   margin-left: 0.25rem;
 }
 
-.ml-5{
-  margin-left: 1.25rem;
-}
-
 .block{
   display: block;
 }
@@ -762,6 +769,10 @@ select{
 
 .h-full{
   height: 100%;
+}
+
+.h-24{
+  height: 6rem;
 }
 
 .h-16{
@@ -802,6 +813,10 @@ select{
 
 .shrink{
   flex-shrink: 1;
+}
+
+.cursor-pointer{
+  cursor: pointer;
 }
 
 .grid-cols-7{
@@ -1147,6 +1162,10 @@ select{
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.ease-in{
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+
 .bg-image {
   background-image: url("../images/quacks.png");
   background-size: cover;
@@ -1173,13 +1192,12 @@ select{
 }
 
 .dropdown:hover .dropdown-option {
-  display: block
+  display:inline-block
 }
 
-/* 
-@media screen and (max-width: 500px) {
-
-} */
+.dropdown:hover .avatar {
+  border: 1px solid white
+}
 
 .index-image {
   max-height: 300px
@@ -1343,11 +1361,6 @@ select{
   .md\:text-5xl{
     font-size: 3rem;
     line-height: 1;
-  }
-
-  .md\:text-sm{
-    font-size: 0.875rem;
-    line-height: 1.25rem;
   }
 }
 
