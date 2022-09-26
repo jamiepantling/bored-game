@@ -649,28 +649,12 @@ select{
   position: relative;
 }
 
-.right-4{
-  right: 1rem;
+.top-24{
+  top: 6rem;
 }
 
-.top-6{
-  top: 1.5rem;
-}
-
-.top-12{
-  top: 3rem;
-}
-
-.top-16{
-  top: 4rem;
-}
-
-.right-3{
-  right: 0.75rem;
-}
-
-.top-8{
-  top: 2rem;
+.left-0{
+  left: 0px;
 }
 
 .col-span-2{
@@ -719,11 +703,6 @@ select{
   margin-bottom: 0.25rem;
 }
 
-.my-auto{
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
 .ml-3{
   margin-left: 0.75rem;
 }
@@ -760,14 +739,6 @@ select{
   margin-left: 0.25rem;
 }
 
-.ml-5{
-  margin-left: 1.25rem;
-}
-
-.mt-2{
-  margin-top: 0.5rem;
-}
-
 .block{
   display: block;
 }
@@ -800,20 +771,12 @@ select{
   height: 100%;
 }
 
+.h-24{
+  height: 6rem;
+}
+
 .h-16{
   height: 4rem;
-}
-
-.h-3{
-  height: 0.75rem;
-}
-
-.h-5{
-  height: 1.25rem;
-}
-
-.h-7{
-  height: 1.75rem;
 }
 
 .max-h-72{
@@ -998,11 +961,6 @@ select{
 .bg-indigo-50{
   --tw-bg-opacity: 1;
   background-color: rgb(238 242 255 / var(--tw-bg-opacity));
-}
-
-.bg-slate-500{
-  --tw-bg-opacity: 1;
-  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
 }
 
 .p-3{
@@ -1204,6 +1162,10 @@ select{
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.ease-in{
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+
 .bg-image {
   background-image: url("../images/quacks.png");
   background-size: cover;
@@ -1231,6 +1193,10 @@ select{
 
 .dropdown:hover .dropdown-option {
   display:inline-block
+}
+
+.dropdown:hover .avatar {
+  border: 1px solid white
 }
 
 .index-image {

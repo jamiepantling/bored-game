@@ -28,6 +28,9 @@
 .dropdown:hover .dropdown-option {
     display:inline-block
 }
+.dropdown:hover .avatar {
+  border: 1px solid white 
+}
 .index-image {
   max-height: 300px
 }
