@@ -1344,11 +1344,6 @@ select{
     font-size: 3rem;
     line-height: 1;
   }
-
-  .md\:text-sm{
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-  }
 }
 
 @media (min-width: 1024px){
