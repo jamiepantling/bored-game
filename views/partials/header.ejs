@@ -1,47 +1,52 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1"
+    />
     <title><%= title %></title>
     <link rel="stylesheet" href="/../stylesheets/style.css" />
   </head>
   <body class="bg-indigo-50">
     <div
-      class="py-3 flex justify-between align-middle items-center  bg-[#27272e] text-white h-28"
+      class="header-main py-1 md:py-3 flex justify-between items-center bg-[#27272e] text-white"
     >
-      <div class="ml-3">
+      <div class="buttons-container flex-none flex flex-col w-28 md:w-auto md:ml-5 ml-1">
         <% if (user) { %>
         <a href="/games"
           ><button
-            class="mx-2 my-2 bg-indigo-800 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-6 py-2 font-bold text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+            class="mx-2 md:my-2 my-1 w-full bg-indigo-800 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white md:px-6 px-2 py-2 font-bold text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
           >
             All games
           </button></a
         ><a href="/games/new"
           ><button
-            class="mx-2 my-2 bg-indigo-800 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-6 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 font-bold"
+            class="mx-2 md:my-2 my:1 w-full bg-indigo-800 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white md:px-6 px-2 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 font-bold"
           >
-            Add game
+            + Add game
           </button></a
         >
         <%}%>
       </div>
       <div
-        class="text-center sm:text-5xl text-3xl font-title font-bold py-4"
+        class="title-container shrink text-center md:text-5xl text-2xl font-title font-bold py-4 px-2"
       >
         <%=title%>
       </div>
 
-      <div class="flex justify-around align-middle mr-5 ">
+      <div class="dropdown-container w-28 flex flex-none justify-end align-middle mr-2 md:mr-5">
         <% if (user) { %>
-        
-        <div class="ml-5 dropdown">
+
+        <div class="md:ml-5 dropdown">
           <img
             referrerpolicy="no-referrer"
             class="rounded-full h-16 w-16 border border-gray-500"
             src="<%=user.picture%>"
           />
-          <div class="dropdown-option flex align-middle justify-center ml-5 my-auto">
+          <div
+            class="dropdown-option flex align-middle justify-center ml-5 my-auto"
+          >
             <a class="sm:text-xl text-md font-bold" href="/logout">Log Out</a>
           </div>
         </div>
