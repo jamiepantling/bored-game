@@ -1,29 +1,30 @@
 <%- include("../partials/header.ejs") %>
 <div class="grid grid-cols-1">
 
-  <div class="mt-7 max-w-md mx-auto">
+  <div class="mt-7 index-tags-holder mx-auto">
     <% tags.forEach(function(tag) { %>
-      <div class="bg-green-100 text-green-800 text-md md:text-sm m-1 inline-block font-semibold px-2.5 py-0.5 rounded">
-        <a href="/tags/<%=tag._id%>"><%=tag.content%></a>
+      <div class="bg-green-100 text-green-800 m-1 inline-block font-semibold px-2.5 py-0.5 rounded">
+        <a class="md:text-5xl text-sm" href="/tags/<%=tag._id%>"><%=tag.content%></a>
     </div>
     <% }) %>
   </div>
-  <div class="p-3 ">
+  <div class="p-3 index-grid mx-auto">
    
-    <ul>
+    <ul class="flex flex-wrap gap-3 justify-center ">
     <% games.forEach(function(game, idx) { %>
-      <li>
-        <div class="bg-white flex flex-col max-w-md mx-auto my-4 p-4 shadow rounded-lg">
+      <li class="index-card ">
+        <div class="bg-white flex h-full flex-col justify-between mx-auto my-4 p-4 shadow rounded-lg">
           <div class="mb-1">
-            <div class="mb-1">
+            <div class="mb-2">
               <a class="font-bold" href="/games/<%= game.id%>">
                 <%= game.title %>
               </a>
             </div>
-            <div class="flex items-center justify-center max-h-72  text-center overflow-hidden">
-              <a class="font-bold" href="/games/<%= game.id%>"><img class="max-h-72" src="<%=game.picture%>"></a>
+            <div class="flex items-center justify-center text-center overflow-hidden">
+              <a class="font-bold" href="/games/<%= game.id%>"><img class="index-image" src="<%=game.picture%>"></a>
             </div>
           </div>
+          <div class="flex flex-col ">
           <div class="py-1">
             <div class="bg-indigo-100 text-indigo-800 text-xs inline font-semibold px-2.5 py-0.5 rounded">
               <% if (game.reviews.length === 1) {%>
@@ -47,6 +48,7 @@
                 >Details
               </button>
             </a>
+          </div>
           </div>
 
         </div>

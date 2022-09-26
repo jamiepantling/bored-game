@@ -29,3 +29,20 @@
 .dropdown:hover .dropdown-option {
     display: block
 }
+/* 
+@media screen and (max-width: 500px) {
+
+} */
+.index-image {
+  max-height: 300px
+}
+.index-card {
+  width: 360px;
+  height: 500px
+}
+.index-grid {
+  max-width: 1700px
+}
+.index-tags-holder {
+  max-width: 800px
+}
