@@ -18,7 +18,8 @@ function index (req, res) {
 }
 async function show (req, res) {
   if (!req.user) return res.redirect("/")
+  let user = await User.findById(req.user.id);
   let games = await Game.find({"gameAuthor": req.params.id})
   games = gamesCtrl.gameSort(games)
-  res.render("users/show", {title: req.user.name, games})
+  res.render("users/show", {title: req.user.name, games, collections: user.collections})
 }

@@ -2,8 +2,8 @@ const res = require("express/lib/response");
 const { redirect } = require("express/lib/response");
 const { update } = require("../models/game");
 let Game = require("../models/game");
-const user = require("../models/user");
-let User = require("../models/user");
+
+
 
 module.exports = {
   create,
