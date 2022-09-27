@@ -20,7 +20,7 @@ async function create(req, res) {
     }
     user.collections.push(collection)
     await user.save()
-    res.redirect(`/users/${user._id}`, {collections: user.collections})
+    res.redirect(`/users/${user._id}`)
 }
 
 
