@@ -5,7 +5,9 @@ const clientId = process.env.ATLAS_CLIENT_ID;
 
 module.exports = {
     new: newCollection,
-    create
+    create,
+    show,
+    delete: deleteOne
 }
 function newCollection(req, res) {
     if (!req.user) return res.redirect("/");
@@ -23,16 +25,21 @@ async function create(req, res) {
     res.redirect(`/users/${user._id}`)
 }
 
+async function show(req, res) {
+    if (!req.user || req.user.id != req.params.userId) return res.redirect("/")
+    let user = await User.findById(req.params.userId)
+    let collection = user.collections.id(req.params.collectionId)
+    res.render("collections/show", {title: `${collection.title}`, collection})
+}
 
-// async function create(req, res) {
-//     if (!req.user) return res.redirect("/");
-//     let game = await Game.findById(req.params.id);
-//     let review = {
-//       content: req.body.content,
-//       reviewAuthor: req.user._id,
-//       reviewAuthorName: req.user.name,
-//     };
-//     game.reviews.push(review);
-//     await game.save();
-//     res.redirect(`/games/${game._id}`);
-//   }
+
+async function deleteOne(req, res) {
+    if (!req.user) return res.redirect("/");
+    let user = await User.findOne({ "collections._id": req.params.id });
+    if (req.user.id != user._id) return res.redirect("/")
+    index = user.collections.findIndex((collection) => collection._id == req.params.id);
+    user.collections[index].remove();
+    await user.save();
+    res.redirect(`/users/${user._id}`);
+  }
+  
