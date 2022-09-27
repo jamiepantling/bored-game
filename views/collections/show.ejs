@@ -1,0 +1,25 @@
+<%- include("../partials/header") %>
+<div
+  class="bg-white shadow overflow-hidden my-3 rounded-lg max-w-sm md:max-w-2xl lg:max-w-4xl mx-auto"
+>
+  <div class="px-4 py-5 md:px-6">
+    <h3 class="text-lg leading-6 font-medium text-gray-900">Collection details</h3>
+  </div>
+  <div class="flex justify-end">
+
+    <form
+      action="/collections/<%=collection._id%>?_method=DELETE"
+      method="POST"
+    >
+      <button
+        class="bg-red-500 transition duration-150 ease-in-out hover:bg-red-400 rounded text-white px-3 py-2 text-s focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+      >
+        Delete collection
+      </button>
+    </form>
+
+  </div>
+ 
+</div>
+
+<%- include("../partials/footer") %>
