@@ -39,11 +39,11 @@
         <% if (user) { %>
 
         <div class="w-28 h-24 flex justify-center items-center flex-col dropdown ">
-          <img
+          <a class="text-md font-bold" href="/users/<%= user.id%>"><img
             referrerpolicy="no-referrer"
             class="avatar cursor-pointer rounded-full h-16 w-16 border border-gray-500"
             src="<%=user.picture%>"
-          />
+          /></a>
           <div
             class="dropdown-option absolute w-28 text-center top-24 left-0 bg-indigo-800 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white md:px-6 px-2 py-2 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
           >
