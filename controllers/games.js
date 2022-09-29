@@ -27,12 +27,18 @@ async function index(req, res) {
 
     let games = await Game.find({}).populate("tag");
     let tags = await Tag.find({});
+    let user = await User.findById(req.user.id).populate({
+      path: "collections",
+      populate: {
+        path: "games"
+      },
+    });
 
     tags = tagSort(tags);
     games = gameSort(games);
 
     res.render("games/index", {
-      user: req.user,
+      user,
       games,
       title: "All games",
       tags,

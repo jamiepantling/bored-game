@@ -26,7 +26,8 @@ async function create(req, res) {
   };
   user.collections.push(collection);
   await user.save();
-  res.redirect(`/users/${user._id}`);
+  user = await User.findById(req.user.id);
+  res.redirect(`/users/${user._id}/collections/${user.collections[user.collections.length-1]._id}`);
 }
 
 async function show(req, res) {

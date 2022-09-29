@@ -665,26 +665,12 @@ select{
   grid-column: span 2 / span 2;
 }
 
-.col-span-3{
-  grid-column: span 3 / span 3;
-}
-
 .m-1{
   margin: 0.25rem;
 }
 
 .m-2{
   margin: 0.5rem;
-}
-
-.mx-2{
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
-
-.my-2{
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
 }
 
 .mx-auto{
@@ -702,13 +688,14 @@ select{
   margin-bottom: 1rem;
 }
 
-.my-1{
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
+.my-2{
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.ml-3{
-  margin-left: 0.75rem;
+.mx-2{
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .mr-3{
@@ -719,8 +706,8 @@ select{
   margin-right: 0.25rem;
 }
 
-.mt-7{
-  margin-top: 1.75rem;
+.mb-3{
+  margin-bottom: 0.75rem;
 }
 
 .mb-1{
@@ -743,8 +730,8 @@ select{
   margin-left: 0.25rem;
 }
 
-.mb-3{
-  margin-bottom: 0.75rem;
+.mt-7{
+  margin-top: 1.75rem;
 }
 
 .block{
@@ -769,10 +756,6 @@ select{
 
 .h-screen{
   height: 100vh;
-}
-
-.h-28{
-  height: 7rem;
 }
 
 .h-full{
@@ -827,10 +810,6 @@ select{
   cursor: pointer;
 }
 
-.grid-cols-7{
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-}
-
 .grid-cols-1{
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
@@ -871,6 +850,10 @@ select{
   justify-content: space-between;
 }
 
+.gap-6{
+  gap: 1.5rem;
+}
+
 .gap-2{
   gap: 0.5rem;
 }
@@ -887,12 +870,12 @@ select{
   overflow: hidden;
 }
 
-.rounded{
-  border-radius: 0.25rem;
-}
-
 .rounded-md{
   border-radius: 0.375rem;
+}
+
+.rounded{
+  border-radius: 0.25rem;
 }
 
 .rounded-lg{
@@ -925,19 +908,9 @@ select{
   border-color: rgb(107 114 128 / var(--tw-border-opacity));
 }
 
-.bg-indigo-100{
-  --tw-bg-opacity: 1;
-  background-color: rgb(224 231 255 / var(--tw-bg-opacity));
-}
-
 .bg-\[\#27272e\]{
   --tw-bg-opacity: 1;
   background-color: rgb(39 39 46 / var(--tw-bg-opacity));
-}
-
-.bg-indigo-800{
-  --tw-bg-opacity: 1;
-  background-color: rgb(55 48 163 / var(--tw-bg-opacity));
 }
 
 .bg-\[\#fc773a\]{
@@ -955,9 +928,19 @@ select{
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
 }
 
+.bg-indigo-800{
+  --tw-bg-opacity: 1;
+  background-color: rgb(55 48 163 / var(--tw-bg-opacity));
+}
+
 .bg-green-100{
   --tw-bg-opacity: 1;
   background-color: rgb(220 252 231 / var(--tw-bg-opacity));
+}
+
+.bg-indigo-100{
+  --tw-bg-opacity: 1;
+  background-color: rgb(224 231 255 / var(--tw-bg-opacity));
 }
 
 .bg-gray-50{
@@ -991,11 +974,6 @@ select{
   padding: 0.75rem;
 }
 
-.py-3{
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
-
 .px-6{
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -1004,11 +982,6 @@ select{
 .py-2{
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-}
-
-.py-4{
-  padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 
 .px-4{
@@ -1026,6 +999,11 @@ select{
   padding-right: 0.75rem;
 }
 
+.px-2{
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .px-2\.5{
   padding-left: 0.625rem;
   padding-right: 0.625rem;
@@ -1036,11 +1014,6 @@ select{
   padding-bottom: 0.125rem;
 }
 
-.px-2{
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
 .py-0{
   padding-top: 0px;
   padding-bottom: 0px;
@@ -1049,6 +1022,11 @@ select{
 .py-1{
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+}
+
+.py-4{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .pt-5{
@@ -1071,9 +1049,14 @@ select{
   font-family: "Love Ya Like A Sister", cursive;
 }
 
-.text-xs{
-  font-size: 0.75rem;
-  line-height: 1rem;
+.text-9xl{
+  font-size: 8rem;
+  line-height: 1;
+}
+
+.text-xl{
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .text-3xl{
@@ -1086,11 +1069,6 @@ select{
   line-height: 1.75rem;
 }
 
-.text-xl{
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
 .text-sm{
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -1099,6 +1077,11 @@ select{
 .text-2xl{
   font-size: 1.5rem;
   line-height: 2rem;
+}
+
+.text-xs{
+  font-size: 0.75rem;
+  line-height: 1rem;
 }
 
 .font-bold{
@@ -1113,8 +1096,8 @@ select{
   font-weight: 600;
 }
 
-.font-extrabold{
-  font-weight: 800;
+.font-normal{
+  font-weight: 400;
 }
 
 .italic{
@@ -1128,11 +1111,6 @@ select{
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-green-400{
-  --tw-text-opacity: 1;
-  color: rgb(74 222 128 / var(--tw-text-opacity));
 }
 
 .text-gray-700{
@@ -1195,17 +1173,18 @@ select{
 }
 
 .google {
-  background-image: url("../images/google-button.png");
-  width: 191px;
-  height: 46px;
+  background-image: url("../images/btn_google_signin_light_normal_web@2x.png");
+  background-size: cover;
+  width: 287px;
+  height: 69px
 }
 
 .google:hover {
-  background-image: url("../images/google-focus.png");
+  background-image: url("../images/btn_google_signin_light_focus_web@2x.png");
 }
 
 .google:active {
-  background-image: url("../images/google-pressed.png");
+  background-image: url("../images/btn_google_signin_light_pressed_web@2x.png");
 }
 
 .dropdown-option {
@@ -1250,11 +1229,6 @@ select{
   height: 100px;
 }
 
-.hover\:bg-indigo-600:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(79 70 229 / var(--tw-bg-opacity));
-}
-
 .hover\:bg-\[\#ef654a\]:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(239 101 74 / var(--tw-bg-opacity));
@@ -1263,6 +1237,11 @@ select{
 .hover\:bg-red-400:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(248 113 113 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-indigo-600:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(79 70 229 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-green-400:hover{
@@ -1281,11 +1260,6 @@ select{
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 
-.focus\:ring-indigo-600:focus{
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(79 70 229 / var(--tw-ring-opacity));
-}
-
 .focus\:ring-\[\#fc773a\]:focus{
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(252 119 58 / var(--tw-ring-opacity));
@@ -1294,6 +1268,11 @@ select{
 .focus\:ring-red-500:focus{
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(239 68 68 / var(--tw-ring-opacity));
+}
+
+.focus\:ring-indigo-600:focus{
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(79 70 229 / var(--tw-ring-opacity));
 }
 
 .focus\:ring-green-500:focus{
@@ -1334,21 +1313,6 @@ select{
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
-
-  .sm\:text-sm{
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-  }
-
-  .sm\:text-5xl{
-    font-size: 3rem;
-    line-height: 1;
-  }
-
-  .sm\:text-xl{
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
 }
 
 @media (min-width: 768px){
@@ -1386,6 +1350,11 @@ select{
   .md\:text-lg{
     font-size: 1.125rem;
     line-height: 1.75rem;
+  }
+
+  .md\:text-2xl{
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 
   .md\:text-5xl{

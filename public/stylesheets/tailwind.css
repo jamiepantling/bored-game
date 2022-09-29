@@ -12,15 +12,16 @@
     background-repeat: no-repeat;
 }
 .google {
-  background-image: url("../images/google-button.png");
-  width: 191px;
-  height: 46px;
+  background-image: url("../images/btn_google_signin_light_normal_web@2x.png");
+  background-size: cover;
+  width: 287px;
+  height: 69px
 }
 .google:hover {
-  background-image: url("../images/google-focus.png");
+  background-image: url("../images/btn_google_signin_light_focus_web@2x.png");
 }
 .google:active {
-  background-image: url("../images/google-pressed.png");
+  background-image: url("../images/btn_google_signin_light_pressed_web@2x.png");
 }
 .dropdown-option {
   display: none

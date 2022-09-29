@@ -1,6 +1,51 @@
 <%- include("../partials/header.ejs") %>
 <div class="grid grid-cols-1">
-  <div class="mt-7 index-tags-holder mx-auto">
+  <div class="mx-auto flex justify-center gap-2 items-center">
+  <a href="/games/new" class="mx-auto my-4"
+          ><button
+            class="w-30 bg-indigo-800 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white md:px-6 px-2 py-2 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+          >
+            + Add game to library
+          </button></a
+        >
+        <a href="/users/<%=user.id%>/collections/new" class="mx-auto"
+          ><button
+            class="w-30 bg-indigo-800 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white md:px-6 px-2 py-2 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+          >
+            + Add your own collection
+          </button></a
+        >
+        
+      </div>
+      <div><% if (user.collections.length) { %>
+        <h3 class="text-center text-lg leading-6 font-medium text-gray-900">
+          Your collections:
+        </h3>
+        <ul class="flex flex-wrap gap-3 justify-center mb-3">
+          <% user.collections.forEach(function(collection, idx) { %>
+          <li class="">
+            <div
+              class="bg-white flex flex-col justify-between mx-auto my-4 py-2 px-3 shadow rounded"
+            >
+              <div class="">
+
+                  <a class="font-bold" href="users/<%=user.id%>/collections/<%= collection.id%>">
+                    📚 <%= collection.title %><br><div class="text-right font-normal"><% if(collection.games.length>1||!collection.games.length) {%>
+                      <%=collection.games.length%> games
+                      <% } else { %>
+                        1 game
+                        <% } %>
+                      </div>
+                  </a>
+
+              </div>
+            </div>
+          </li>
+          <%}) %>
+        </ul>
+        <% } %>
+      </div>
+  <div class="index-tags-holder flex flex-wrap justify-center mx-auto">
     <% tags.forEach(function(tag) { %>
     <div
       class="bg-green-100 text-green-800 m-1 inline-block font-semibold px-2.5 py-0.5 rounded"

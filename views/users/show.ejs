@@ -1,8 +1,8 @@
 <%- include("../partials/header") %>
-<div class="flex justify-center">
+<div class="flex justify-center my-4">
   <a href="<%=user.id%>/collections/new"
     ><button
-      class="mx-2 md:my-2 w-28 my:1 w-full bg-indigo-800 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white md:px-6 px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 font-bold"
+      class="mx-2 md:my-2 w-30 my:1 bg-indigo-800 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white md:px-6 px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 font-bold"
     >
       + Add collection
     </button></a
@@ -11,18 +11,18 @@
 <div class="p-3 mb-3">
   <% if (user.collections.length) { %>
   <h3 class="text-center text-lg leading-6 font-medium text-gray-900">
-    Collections
+    Your collections:
   </h3>
   <ul class="flex flex-wrap gap-3 justify-center mb-3">
     <% collections.forEach(function(collection, idx) { %>
     <li class="">
       <div
-        class="bg-white flex flex-col justify-between mx-auto my-4 p-4 shadow rounded"
+        class="bg-white flex flex-col justify-between mx-auto my-4 py-2 px-3  shadow rounded"
       >
-        <div class="mb-1">
-          <div class="mb-2">
+        <div class="">
+          <div class="">
             <a class="font-bold" href="<%=user.id%>/collections/<%= collection.id%>">
-              <%= collection.title %>
+              📚 <%= collection.title %>
             </a>
           </div>
         </div>
