@@ -6,7 +6,7 @@ module.exports = {
         quacks: "url('../public/images/quacks.png')",
       }),
       fontFamily: {
-        'title': ['"Architects Daughter"', 'cursive']
+        'title': ['"Love Ya Like A Sister"', 'cursive']
       }
     },
   },
