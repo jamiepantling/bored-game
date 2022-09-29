@@ -22,7 +22,12 @@
         <div class="">
           <div class="">
             <a class="font-bold" href="<%=user.id%>/collections/<%= collection.id%>">
-              📚 <%= collection.title %>
+              📚 <%= collection.title %><br><div class="text-right font-normal"><% if(collection.games.length>1||!collection.games.length) {%>
+                <%=collection.games.length%> games
+                <% } else { %>
+                  1 game
+                  <% } %>
+                </div>
             </a>
           </div>
         </div>
