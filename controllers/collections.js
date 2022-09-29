@@ -83,17 +83,14 @@ async function deleteOne(req, res) {
 }
 
 async function update(req, res) {
-
   let user = await User.findById(req.params.userId);
   let collection = user.collections.id(req.params.collectionId);
   let game = await Game.findById(req.body.game);
-  console.log(collection.games)
-  console.log(game)
+  //If the game in the request is not in the collection already, add it
   if (!collection.games.includes(game._id)) {
     collection.games.push(game);
   } else {
-    console.log("deleting game from collection")
-    console.log(game)
+    //Otherwise, remove it
     let idx = collection.games.indexOf(game._id)
     collection.games.splice(idx,1)
   }
