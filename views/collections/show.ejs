@@ -1,6 +1,6 @@
 <%- include("../partials/header") %>
 <div
-  class="bg-white shadow flex flex-col items-center justify-center overflow-hidden my-3 rounded-lg max-w-sm md:max-w-2xl lg:max-w-4xl mx-auto"
+  class="bg-white shadow p-2 flex flex-col items-center justify-center overflow-hidden my-3 rounded-lg max-w-sm md:max-w-2xl lg:max-w-4xl mx-auto"
 >
   <div class="px-4 py-5 md:px-6">
     <h3 class="text-lg leading-6 font-medium text-gray-900">
@@ -15,10 +15,10 @@
       method="POST"
       class="flex justify-center gap-2 items-center flex-col"
     >
-      <select class="rounded" placeholder="" name="game">
+      <select class="rounded  " placeholder="" name="game">
         <%uncollectedGames.forEach(game => {%>
 
-        <option class="" value="<%=game._id%>"><%=game.title%></option>
+        <option class="" value="<%=game._id%>"><span class=""><%=game.title%></span></option>
 
         <%})%></select
       >
@@ -32,12 +32,12 @@
   </div>
   <div class="px-4">
     <div class="flex flex-wrap gap-3 justify-center">
-      <% if (collection.games.length) { %> <% collection.games.forEach(game =>
+      <% if (collectedGames.length) { %> <% collectedGames.forEach(game =>
       {%>
       <div
         class="collection-game-card border-2 bg-white flex flex-col justify-between mx-auto my-4 p-4 shadow rounded-lg"
       >
-        <div class="flex font-bold items-center justify-between">
+        <div class="flex font-title font-bold items-center justify-between">
           <%=game.title%>
           <form
             action="/users/<%=user._id%>/collections/<%=collection._id%>?_method=PUT"

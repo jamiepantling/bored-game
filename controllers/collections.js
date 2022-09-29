@@ -61,12 +61,15 @@ async function show(req, res) {
     )
       uncollectedGames.push(allGames[i]);
   }
+  let collectedGames = collection.games
+  gamesCtrl.gameSort(collectedGames)
 
   res.render("collections/show", {
     title: `${collection.title}`,
-    collection,
+    collectedGames,
     uncollectedGames,
     allGames,
+    collection
   });
 }
 
