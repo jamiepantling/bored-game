@@ -11,7 +11,10 @@
     <ul>
         <% if (collection.games.length) { %>
             <% collection.games.forEach(game => {%>
-            <li><%=game.title%></li>
+            <li><%=game.title%> <form
+                action="/users/<%=user._id%>/collections/<%=collection._id%>?_method=PUT"
+                method="POST"
+              ><button name="game" value="<%=game._id%>">X</button></form></li>
             <%})%>
             <%}%>
     </ul>
