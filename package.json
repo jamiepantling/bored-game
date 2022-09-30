@@ -20,7 +20,8 @@
     "passport": "^0.5.2",
     "passport-google-oauth": "^2.0.0",
     "request": "^2.88.2",
-    "request-promise": "^4.2.6"
+    "request-promise": "^4.2.6",
+    "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.0",

@@ -7,19 +7,26 @@
     />
     <title><%= title %></title>
     <link rel="stylesheet" href="/../stylesheets/style.css" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
   </head>
   <body class="bg-indigo-50">
     <div
       class="header-main py-1 md:py-3 flex justify-between items-center bg-[#27272e] text-white"
     >
-      <div class="buttons-container flex-none flex flex-col w-28 md:w-auto md:ml-5 ml-1">
+      <div
+        class="buttons-container flex-none flex flex-col w-28 md:w-auto md:ml-5 ml-1"
+      >
         <% if (user) { %>
         <a href="/games"
           ><div
-          class="title-container shrink text-center md:text-2xl text-2xl font-title font-bold py-4 px-2"
-        >
-          Bored?<br/> Game!
-        </div></a
+            class="title-container shrink text-center md:text-2xl text-2xl font-title font-bold py-4 px-2"
+          >
+            Bored?<br />
+            Game!
+          </div></a
         >
         <%}%>
       </div>
@@ -29,11 +36,15 @@
         <%=title%>
       </div>
 
-      <div class="dropdown-container w-28 relative flex flex-none justify-end items-center mr-2 md:mr-5">
+      <div
+        class="dropdown-container w-28 relative flex flex-none justify-end items-center mr-2 md:mr-5"
+      >
         <% if (user.name) { %>
 
-        <div class="w-28 h-24 flex justify-center items-center flex-col dropdown ">
-<img
+        <div
+          class="w-28 h-24 flex justify-center items-center flex-col dropdown"
+        >
+          <img
             referrerpolicy="no-referrer"
             class="avatar cursor-pointer rounded-full h-16 w-16 border border-gray-500"
             src="<%=user.picture%>"
@@ -51,9 +62,9 @@
         </div>
 
         <% } else { %>
-          
+
         <a href="/auth/google"><div class="googleSmall"></div></a>
-      
+
         <% } %>
       </div>
     </div>

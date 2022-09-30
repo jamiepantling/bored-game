@@ -7,6 +7,7 @@ var methodOverride = require('method-override')
 var session = require("express-session")
 require('dotenv').config()
 var passport = require('passport');
+var favicon = require('serve-favicon')
 const request = require("request")
 
 require('./config/database');
@@ -30,6 +31,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method')); 
 app.use(session({
@@ -39,6 +41,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 app.use(function (req, res, next) {
   res.locals.user = req.user;
