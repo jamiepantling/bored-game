@@ -18,7 +18,8 @@ const userSchema = new Schema(
     email: String,
     googleId: String,
     picture: String,
-    collections: [collectionSchema]
+    collections: [collectionSchema],
+    admin: Boolean
   },
   {
     timestamps: true,

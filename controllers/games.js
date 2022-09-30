@@ -36,7 +36,7 @@ async function index(req, res) {
 
     tags = tagSort(tags);
     games = gameSort(games);
-
+    console.log(user.admin)
     res.render("games/index", {
       user,
       games,
@@ -73,6 +73,7 @@ async function show(req, res) {
   if (!req.user) return res.redirect("/");
   let game = await Game.findById(req.params.id).populate("tag");
   let tags = await Tag.find({});
+  let user = await User.findById(req.user.id)
   let reviews = game.reviews;
   if (!game.picture) {
     let body = await request(
@@ -103,7 +104,7 @@ async function show(req, res) {
     title: game.title,
     tags,
     reviews,
-    user: req.user,
+    user,
   });
 }
 
@@ -112,8 +113,10 @@ async function edit(req, res) {
   if (!req.user) return res.redirect("/");
   // Find specific game in database and populate the tags rather than just IDs
   let game = await Game.findById(req.params.id).populate("tag");
+  let user = await User.findById(req.user.id)
   // If the user isn't the creator, redirect to the game's show page
-  if (req.user.id != game.gameAuthor) {
+
+  if (req.user.id != game.gameAuthor && !user.admin) {
     return res.redirect(`/games/${game._id}`);
   }
   // Otherwise get the tags from the database, sort them, and render the
