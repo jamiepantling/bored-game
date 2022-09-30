@@ -155,13 +155,15 @@ async function update(req, res) {
 async function deleteOne(req, res) {
   if (!req.user) return res.redirect("/games");
   let game = await Game.findById(req.params.id);
-  if (req.user.id != game.gameAuthor) {
+  let user = await User.findById(req.user.id)
+  if (req.user.id != game.gameAuthor && !user.admin) {
     return res.redirect(`/games/${game._id}`);
   }
   await game.remove();
 
   res.redirect("/games/");
 }
+
 // This is actually a toggle tag function - consider renaming
 async function addTag(req, res) {
   // If there's no user logged in, redirect to the games index page

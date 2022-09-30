@@ -41,7 +41,7 @@
   </h3>
   <ul class="flex flex-wrap gap-3 justify-center">
     <% games.forEach(function(game, idx) { %>
-    <li class="index-card">
+    <li class="collection-game-card">
       <div
         class="bg-white flex h-full flex-col justify-between mx-auto my-4 p-4 shadow rounded-lg"
       >
@@ -55,39 +55,11 @@
             class="flex items-center justify-center text-center overflow-hidden"
           >
             <a class="font-bold" href="/games/<%= game.id%>"
-              ><img class="index-image" src="<%=game.picture%>"
+              ><img class="collection-game-image" src="<%=game.picture%>"
             /></a>
           </div>
         </div>
-        <div class="flex flex-col">
-          <div class="py-1">
-            <div
-              class="bg-indigo-100 text-indigo-800 text-xs inline font-semibold px-2.5 py-0.5 rounded"
-            >
-              <% if (game.reviews.length === 1) {%> 1 review <%} else {%>
-              <%=game.reviews.length%> reviews
-            </div>
-            <% } %>
-          </div>
-          <div class="text-right flex-wrap flex justify-end">
-            <% if((game.tag)) { %> <% game.tag.forEach(function(tag) { %>
-            <div
-              class="bg-green-100 text-green-800 text-xs m-1 inline-block font-semibold px-2.5 py-0.5 rounded"
-            >
-              <%=tag.content%>
-            </div>
-            <% })} %>
-          </div>
-          <div class="">
-            <a href="/games/<%= game.id%>">
-              <button
-                class="bg-[#fc773a] transition duration-150 ease-in-out hover:bg-[#ef654a] rounded text-white px-4 py-1 font-semibold text-xs focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#fc773a]"
-              >
-                Details
-              </button>
-            </a>
-          </div>
-        </div>
+        
       </div>
     </li>
     <%}) %>
