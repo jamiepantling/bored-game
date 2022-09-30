@@ -1092,12 +1092,12 @@ select{
   font-weight: 500;
 }
 
-.font-semibold{
-  font-weight: 600;
-}
-
 .font-normal{
   font-weight: 400;
+}
+
+.font-semibold{
+  font-weight: 600;
 }
 
 .italic{
@@ -1143,6 +1143,11 @@ select{
   color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 
+.underline{
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
+}
+
 .shadow{
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
@@ -1165,18 +1170,11 @@ select{
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.bg-image {
-  background-image: url("../images/quacks.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
 .google {
   background-image: url("../images/btn_google_signin_light_normal_web@2x.png");
-  background-size: cover;
-  width: 287px;
-  height: 69px
+  background-size: contain;
+  width: 250px;
+  height: 60px
 }
 
 .google:hover {
@@ -1185,6 +1183,21 @@ select{
 
 .google:active {
   background-image: url("../images/btn_google_signin_light_pressed_web@2x.png");
+}
+
+.googleSmall {
+  background-image: url("../images/btn_google_signin_light_normal_web.png");
+  background-size: contain;
+  width: 150px;
+  height: 38px
+}
+
+.googleSmall:hover {
+  background-image: url("../images/btn_google_signin_light_focus_web.png");
+}
+
+.googleSmall:active {
+  background-image: url("../images/btn_google_signin_light_pressed_web.png");
 }
 
 .dropdown-option {

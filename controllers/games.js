@@ -23,20 +23,22 @@ module.exports = {
 
 async function index(req, res) {
   try {
-    if (!req.user) return res.redirect("/");
-
     let games = await Game.find({}).populate("tag");
     let tags = await Tag.find({});
-    let user = await User.findById(req.user.id).populate({
-      path: "collections",
-      populate: {
-        path: "games"
-      },
-    });
+    let user;
+    if (req.user) {
+      user = await User.findById(req.user.id).populate({
+        path: "collections",
+        populate: {
+          path: "games",
+        },
+      });
+    } else {
+      user = {};
+    }
 
     tags = tagSort(tags);
     games = gameSort(games);
-    console.log(user.admin)
     res.render("games/index", {
       user,
       games,
@@ -49,14 +51,14 @@ async function index(req, res) {
 }
 
 async function newGame(req, res) {
-  if (!req.user) return res.redirect("/");
+  if (!req.user) return res.redirect("/games");
   let tags = await Tag.find({});
   tags = tagSort(tags);
   res.render("games/new", { title: "Add new game", tags });
 }
 
 async function create(req, res) {
-  if (!req.user) return res.redirect("/");
+  if (!req.user) return res.redirect("/games");
   let gameBody = {
     title: req.body.title,
     description: req.body.description,
@@ -70,10 +72,20 @@ async function create(req, res) {
 }
 
 async function show(req, res) {
-  if (!req.user) return res.redirect("/");
+  // if (!req.user) return res.redirect("/");
   let game = await Game.findById(req.params.id).populate("tag");
   let tags = await Tag.find({});
-  let user = await User.findById(req.user.id)
+  let user;
+  if (req.user) {
+    user = await User.findById(req.user.id).populate({
+      path: "collections",
+      populate: {
+        path: "games",
+      },
+    });
+  } else {
+    user = {};
+  }
   let reviews = game.reviews;
   if (!game.picture) {
     let body = await request(
@@ -109,11 +121,11 @@ async function show(req, res) {
 }
 
 async function edit(req, res) {
-  // If there's no user logged in, redirect to the login/signup page
-  if (!req.user) return res.redirect("/");
+  // If there's no user logged in, redirect to the games index page
+  if (!req.user) return res.redirect("/games");
   // Find specific game in database and populate the tags rather than just IDs
   let game = await Game.findById(req.params.id).populate("tag");
-  let user = await User.findById(req.user.id)
+  let user = await User.findById(req.user.id);
   // If the user isn't the creator, redirect to the game's show page
 
   if (req.user.id != game.gameAuthor && !user.admin) {
@@ -127,8 +139,8 @@ async function edit(req, res) {
 }
 
 async function update(req, res) {
-  //If there's no user logged in, redirect to the login/signup page
-  if (!req.user) return res.redirect("/");
+  //If there's no user logged in, redirect to the games index page
+  if (!req.user) return res.redirect("/games");
   // Find specific game in database
   let game = await Game.findById(req.params.id);
   // Associate title, description and tag from form with specific game, and save
@@ -141,7 +153,7 @@ async function update(req, res) {
 }
 
 async function deleteOne(req, res) {
-  if (!req.user) return res.redirect("/");
+  if (!req.user) return res.redirect("/games");
   let game = await Game.findById(req.params.id);
   if (req.user.id != game.gameAuthor) {
     return res.redirect(`/games/${game._id}`);
@@ -152,8 +164,8 @@ async function deleteOne(req, res) {
 }
 // This is actually a toggle tag function - consider renaming
 async function addTag(req, res) {
-  // If there's no user logged in, redirect to the login/signup page
-  if (!req.user) return res.redirect("/");
+  // If there's no user logged in, redirect to the games index page
+  if (!req.user) return res.redirect("/games");
   // Get the appropriate game and tag from the database
   let game = await Game.findById(req.params.gameId);
   let newTag = await Tag.findById(req.params.tagId);

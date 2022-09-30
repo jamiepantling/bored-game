@@ -14,12 +14,12 @@ module.exports = {
   update,
 };
 function newCollection(req, res) {
-  if (!req.user) return res.redirect("/");
+  if (!req.user) return res.redirect("/games");
   res.render("collections/new", { title: "Add new collection" });
 }
 
 async function create(req, res) {
-  if (!req.user) return res.redirect("/");
+  if (!req.user) return res.redirect("/games");
   let user = await User.findById(req.user.id);
   let collection = {
     title: req.body.title,
@@ -31,7 +31,7 @@ async function create(req, res) {
 }
 
 async function show(req, res) {
-  if (!req.user || req.user.id != req.params.userId) return res.redirect("/");
+  if (!req.user || (req.user.id != req.params.userId && !user.admin)) return res.redirect("/games");
 
   //Get the user that the collection belongs to, and populate the collection and games
   let user = await User.findById(req.params.userId).populate({
@@ -75,7 +75,7 @@ async function show(req, res) {
 }
 
 async function deleteOne(req, res) {
-  if (!req.user) return res.redirect("/");
+  if (!req.user) return res.redirect("/games");
   let user = await User.findOne({ "collections._id": req.params.id });
   if (req.user.id != user._id) return res.redirect("/");
   index = user.collections.findIndex(
@@ -87,6 +87,7 @@ async function deleteOne(req, res) {
 }
 
 async function update(req, res) {
+  if (!req.user) return res.redirect("/games");
   let user = await User.findById(req.params.userId);
   let collection = user.collections.id(req.params.collectionId);
   let game = await Game.findById(req.body.game);

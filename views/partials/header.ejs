@@ -30,7 +30,7 @@
       </div>
 
       <div class="dropdown-container w-28 relative flex flex-none justify-end items-center mr-2 md:mr-5">
-        <% if (user) { %>
+        <% if (user.name) { %>
 
         <div class="w-28 h-24 flex justify-center items-center flex-col dropdown ">
 <img
@@ -51,7 +51,9 @@
         </div>
 
         <% } else { %>
-        <a href="/auth/google">Login with Google</a>
+          
+        <a href="/auth/google"><div class="googleSmall"></div></a>
+      
         <% } %>
       </div>
     </div>

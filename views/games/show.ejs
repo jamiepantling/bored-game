@@ -14,7 +14,9 @@
     <div>
       <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
         <div class="text-sm font-medium text-gray-500">Title</div>
-        <div class="mt-1 font-title font-bold text-gray-900 sm:mt-0 sm:col-span-2">
+        <div
+          class="mt-1 font-title font-bold text-gray-900 sm:mt-0 sm:col-span-2"
+        >
           <%=game.title%>
         </div>
       </div>
@@ -44,7 +46,8 @@
         <div
           class="mt-1 text-sm text-gray-900 flex justify-between items-center sm:mt-0 sm:col-span-2"
         >
-          <%=game.gameAuthorName%> <%if (game.gameAuthor == user.id || user.admin) {%>
+          <%=game.gameAuthorName%> <%if (game.gameAuthor == user.id ||
+          user.admin) {%>
           <div class="flex justify-end">
             <a href="/games/<%=game._id%>/edit">
               <button
@@ -101,6 +104,7 @@
           <% }) %> <% } %>
           <br />
           <div>
+            <% if (user.name) { %>
             <form action="/games/<%=game._id%>/reviews" method="POST">
               <div class="text-gray-500 font-bold">Add review</div>
               <br />
@@ -123,6 +127,12 @@
                 Submit
               </button>
             </form>
+            <% } else { %>
+            <div>
+              <a href="auth/google" class="underline">Sign in with Google</a> to
+              add reviews.
+            </div>
+            <% } %>
           </div>
         </div>
       </div>

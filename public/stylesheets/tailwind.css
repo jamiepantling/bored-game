@@ -5,23 +5,30 @@
 
 
 
-.bg-image {
-    background-image: url("../images/quacks.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
 .google {
   background-image: url("../images/btn_google_signin_light_normal_web@2x.png");
-  background-size: cover;
-  width: 287px;
-  height: 69px
+  background-size: contain;
+  width: 250px;
+  height: 60px
 }
 .google:hover {
   background-image: url("../images/btn_google_signin_light_focus_web@2x.png");
 }
 .google:active {
   background-image: url("../images/btn_google_signin_light_pressed_web@2x.png");
+}
+.googleSmall {
+  background-image: url("../images/btn_google_signin_light_normal_web.png");
+  background-size: contain;
+  width: 150px;
+  height: 38px
+
+}
+.googleSmall:hover {
+  background-image: url("../images/btn_google_signin_light_focus_web.png");
+}
+.googleSmall:active {
+  background-image: url("../images/btn_google_signin_light_pressed_web.png");
 }
 .dropdown-option {
   display: none
@@ -54,5 +61,4 @@
 }
 .collection-game-image {
   height: 100px;
-
 }
