@@ -19,6 +19,7 @@ async function create(req, res) {
     content: req.body.content,
     reviewAuthor: req.user._id,
     reviewAuthorName: req.user.name,
+    rating: req.body.rating
   };
   game.reviews.push(review);
   await game.save();
