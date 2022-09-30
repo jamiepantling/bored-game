@@ -12,24 +12,44 @@
   </div>
   <div class="border-t border-gray-200">
     <div>
-      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+      <div class="bg-gray-50 px-4 py-5 md:grid md:grid-cols-3 md:gap-4 md:px-6">
         <div class="text-sm font-medium text-gray-500">Title</div>
         <div
-          class="mt-1 font-title font-bold text-gray-900 sm:mt-0 sm:col-span-2"
-        >
+          class=" mt-2 font-bold text-gray-900 md:mt-0 md:col-span-2"
+        ><div class="font-title ">
           <%=game.title%>
         </div>
+          <%if (game.gameAuthor == user.id || user.admin) {%>
+            <div class="flex w-full mt-3 justify-between md:mr-5">
+              <a href="/games/<%=game._id%>/edit">
+                <button
+                  class="mr-1 px-2 py-2 rounded text-s text-white bg-green-500 transition duration-150 ease-in-out hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                >
+                  Edit game
+                </button>
+              </a>
+              <form action="/games/<%=game._id%>?_method=DELETE" method="POST">
+                <button
+                  class="bg-red-500 transition duration-150 ease-in-out hover:bg-red-400 rounded text-white px-2 py-2 text-s focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                >
+                  Delete game
+                </button>
+              </form>
+            </div>
+            <%}%>
+        </div>
+        
       </div>
 
-      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+      <div class="bg-white px-4 py-5 md:grid md:grid-cols-3 md:gap-4 md:px-6">
         <div class="text-sm font-medium text-gray-500">Description</div>
-        <div class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+        <div class="mt-1 text-sm text-gray-900 md:mt-0 md:col-span-2">
           <%-game.description%>
         </div>
       </div>
-      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+      <div class="bg-gray-50 px-4 py-5 md:grid md:grid-cols-3 md:gap-4 md:px-6">
         <div class="text-sm font-medium text-gray-500">Tags</div>
-        <div class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+        <div class="mt-1 text-sm text-gray-900 md:mt-0 md:col-span-2">
           <div>
             <% if(game.tag) { %> <% game.tag.forEach(function(tag) { %>
             <div
@@ -44,48 +64,31 @@
       <div class="bg-white px-4 py-5 grid grid-cols-3 gap-4">
         <div class="text-sm font-medium text-gray-500">Added by</div>
         <div
-          class="mt-1 text-sm text-gray-900 flex justify-between items-center sm:mt-0 sm:col-span-2"
+          class="mt-1 text-sm text-gray-900 flex md:text-left text-right justify-between items-center col-span-2"
         >
-          <%=game.gameAuthorName%> <%if (game.gameAuthor == user.id ||
-          user.admin) {%>
-          <div class="flex justify-end">
-            <a href="/games/<%=game._id%>/edit">
-              <button
-                class="bg-green-500 mr-1 transition duration-150 ease-in-out hover:bg-green-400 rounded text-white px-3 py-2 text-s focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-              >
-                Edit game
-              </button>
-            </a>
-            <form action="/games/<%=game._id%>?_method=DELETE" method="POST">
-              <button
-                class="bg-red-500 transition duration-150 ease-in-out hover:bg-red-400 rounded text-white px-3 py-2 text-s focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-              >
-                Delete game
-              </button>
-            </form>
-          </div>
-          <%}%>
+          <div class=" w-full mb-2 mr-2"><%=game.gameAuthorName%></div>
+          
         </div>
       </div>
-      <div class="bg-gray-50 px-4 py-5 grid grid-cols-3 gap-4">
+      <div class="bg-gray-50 px-4 py-5 md:grid grid-cols-3 gap-4">
         <div class="text-sm font-medium text-gray-500">Reviews</div>
-        <div class="mt-1 text-sm text-gray-900 col-span-2">
+        <div class="mt-1 w-full text-sm text-gray-900 col-span-2">
           <% if (!reviews.length) {%>
           <div>No reviews yet.</div>
           <%} else { %> <% game.reviews.forEach(function(review) { %>
-          <div class="p-2 shadow rounded bg-white m-2 flex flex-col">
+          <div class="p-2 shadow rounded w-full bg-white flex flex-col">
             <div class="text-2xl"><%=review.rating%></div>
             <div><%=review.content%></div>
             <div class="flex justify-between">
-              <div class="italic mt-1"><%=review.reviewAuthorName%></div>
+              <div class="italic my-1"><%=review.reviewAuthorName%></div>
             </div>
-            <div class="flex justify-end">
+            <div class="flex justify-between">
               <%if (review.reviewAuthor == user.id || user.admin) {%>
               <a href="/games/<%=game._id%>/reviews/<%=review._id%>">
                 <button
-                  class="bg-green-500 mr-1 transition duration-150 ease-in-out hover:bg-green-400 rounded text-white px-3 py-2 text-s focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                  class="bg-green-500 mr-1 w-20 transition duration-150 ease-in-out hover:bg-green-400 rounded text-white px-2 py-2 text-s focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
-                  Edit review
+                  Edit
                 </button>
               </a>
               <form
@@ -93,9 +96,9 @@
                 method="POST"
               >
                 <button
-                  class="bg-red-500 transition duration-150 ease-in-out hover:bg-red-400 rounded text-white px-3 py-2 text-s focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  class="bg-red-500  w-20 transition duration-150 ease-in-out hover:bg-red-400 rounded text-white px-3 py-2 text-s focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                 >
-                  Delete review
+                  Delete
                 </button>
               </form>
               <% } %>
@@ -121,16 +124,18 @@
                 type="text"
                 name="content"
               ></textarea>
+              <div class="flex justify-end">
               <button
                 class="bg-[#fc773a] transition duration-150 ease-in-out hover:bg-[#ef654a] rounded text-white px-6 py-2 font-bold text-s focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#fc773a]"
               >
                 Submit
               </button>
+            </div>
             </form>
             <% } else { %>
             <div>
-              <a href="/auth/google" class="underline">Sign in with Google</a> to
-              add reviews.
+              <a href="/auth/google" class="underline">Sign in with Google</a>
+              to add reviews.
             </div>
             <% } %>
           </div>

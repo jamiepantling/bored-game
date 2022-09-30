@@ -10,7 +10,7 @@
 
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
   </head>
-  <body class="bg-indigo-50">
+  <body class="bg-indigo-50 debug-screens">
     <div
       class="header-main py-1 md:py-3 flex justify-between items-center bg-[#27272e] text-white"
     >
@@ -29,7 +29,7 @@
         <%}%>
       </div>
       <div
-        class="title-container shrink text-center md:text-5xl text-2xl font-title font-bold py-4 px-2"
+        class="title-container shrink text-center sm:text-5xl text-3xl font-title font-bold py-4 px-2"
       >
         <%=title%>
       </div>
@@ -61,7 +61,7 @@
 
         <% } else { %>
 
-        <a href="/auth/google"><div class="googleSmall"></div></a>
+        <a href="/auth/google"><div class="googleSmall"><span class="underline">Sign in with Google</span></div></a>
 
         <% } %>
       </div>
