@@ -62,3 +62,13 @@
 .collection-game-image {
   height: 100px;
 }
+
+@media screen and (max-width: 500px) {
+  .index-card {
+    max-width: 360px;
+    height: 380px
+  }
+  .index-image {
+    max-height: 220px
+  }
+}

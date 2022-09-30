@@ -698,6 +698,11 @@ select{
   margin-right: 0.5rem;
 }
 
+.my-5{
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
 .mr-3{
   margin-right: 0.75rem;
 }
@@ -1029,8 +1034,21 @@ select{
   padding-bottom: 1rem;
 }
 
+.py-3{
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
 .pt-5{
   padding-top: 1.25rem;
+}
+
+.pb-10{
+  padding-bottom: 2.5rem;
+}
+
+.pb-2{
+  padding-bottom: 0.5rem;
 }
 
 .text-center{
@@ -1240,6 +1258,17 @@ select{
 
 .collection-game-image {
   height: 100px;
+}
+
+@media screen and (max-width: 500px) {
+  .index-card {
+    max-width: 360px;
+    height: 380px
+  }
+
+  .index-image {
+    max-height: 220px
+  }
 }
 
 .hover\:bg-\[\#ef654a\]:hover{
