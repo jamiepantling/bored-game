@@ -21,7 +21,7 @@ var reviewsRouter = require('./routes/reviews');
 var tagsRouter = require('./routes/tags');
 
 var app = express();
-
+app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

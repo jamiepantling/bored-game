@@ -5,6 +5,8 @@
  */
 
 var app = require('../server');
+
+
 var debug = require('debug')('bored-game:server');
 var http = require('http');
 
