@@ -872,6 +872,10 @@ select{
   width: 13rem;
 }
 
+.w-56{
+  width: 14rem;
+}
+
 .max-w-2xl{
   max-width: 42rem;
 }
@@ -922,6 +926,10 @@ select{
 
 .flex-wrap{
   flex-wrap: wrap;
+}
+
+.items-start{
+  align-items: flex-start;
 }
 
 .items-end{
@@ -1161,6 +1169,14 @@ select{
 
 .pb-10{
   padding-bottom: 2.5rem;
+}
+
+.pl-3{
+  padding-left: 0.75rem;
+}
+
+.text-left{
+  text-align: left;
 }
 
 .text-center{
@@ -1528,6 +1544,10 @@ select{
 
   .md\:flex-row{
     flex-direction: row;
+  }
+
+  .md\:items-start{
+    align-items: flex-start;
   }
 
   .md\:items-center{
