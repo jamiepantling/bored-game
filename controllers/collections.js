@@ -3,6 +3,7 @@ const request = require("request-promise");
 const User = require("../models/user");
 const Game = require("../models/game");
 const gamesCtrl = require("./games");
+let Tag = require("../models/tag")
 
 const clientId = process.env.ATLAS_CLIENT_ID;
 
@@ -65,12 +66,18 @@ async function show(req, res) {
   let collectedGames = collection.games
   gamesCtrl.gameSort(collectedGames)
 
+  //Get all tags
+  let allTags = await Tag.find({})
+   //Sort tags alphabetically
+  allTags = gamesCtrl.tagSort(allTags)
+
   res.render("collections/show", {
     title: `${collection.title}`,
     collectedGames,
     uncollectedGames,
     allGames,
-    collection
+    collection,
+    allTags
   });
 }
 

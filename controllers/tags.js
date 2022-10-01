@@ -11,7 +11,6 @@ module.exports = {
 
 
 async function show (req, res) {
-    // if (!req.user) return res.redirect("/")
     let user;
     if (req.user) {
       user = await User.findById(req.user.id).populate({

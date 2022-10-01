@@ -15,7 +15,7 @@
         action="/users/<%=user._id%>/collections/<%=collection._id%>?_method=PUT"
         method="POST"
       >
-        <div class="flex md:flex-row items-end flex-col">
+        <div class="flex flex-col justify-center items-end md:flex-row md:items-center ">
           <select class="rounded" placeholder="" name="game">
             <%uncollectedGames.forEach(game => {%>
 
@@ -26,12 +26,23 @@
             <%})%>
           </select>
           <button
-            class="bg-[#fc773a] w-fit my-2 md:mt-0 md:ml-3 rounded text-white px-6 py-2 font-bold text-s transition duration-150 ease-in-out hover:bg-[#ef654a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#fc773a]"
+            class="w-fit mt-2 md:mt-0 md:ml-3 px-6 py-2 rounded text-white font-bold text-s transition duration-150 ease-in-out bg-[#fc773a]  hover:bg-[#ef654a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#fc773a]"
           >
             Add
           </button>
         </div>
       </form>
+    </div>
+    <div class=" flex max-w-2xl flex-wrap justify-center mt-2 mx-auto">
+      <% allTags.forEach(function(tag) { %>
+      <div
+        class="bg-green-100 text-green-800  m-1 inline-block font-semibold px-2.5 py-0.5 rounded"
+      >
+        <a class="md:text-md text-sm" href="/tags/<%=tag._id%>"
+          ><%=tag.content%></a
+        >
+      </div>
+      <% }) %>
     </div>
     <div class="px-4">
       <div class="flex flex-wrap gap-3 justify-center">
