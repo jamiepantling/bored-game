@@ -2,6 +2,7 @@ let Tag = require("../models/tag");
 let Game = require("../models/game");
 const tag = require("../models/tag");
 const gamesCtrl = require("./games")
+let User = require("../models/user")
 
 
 module.exports = {
