@@ -132,21 +132,17 @@ async function showTag(req, res) {
   let collection = user.collections.id(req.params.collectionId)
   let tag = await Tag.findById(req.params.tagId);
   let allTags = await Tag.find({});
-
-  let taggedGames = await Game.find({
-    tag: { $elemMatch: { $eq: req.params.tagId } },
-  }).populate("tag");
-  console.log("tag id: ", req.params.tagId)
-  console.log(collection.games[0])  
+  allTags = gamesCtrl.tagSort(allTags)
+  //Find games in collection where the tag matches the params tagId
   let taggedGamesInCollection = collection.games.filter((collectedGame) =>
     collectedGame.tag.some((tag) => tag.equals(req.params.tagId))
   );
+
   res.render("collections/showTag", {
     title: `${collection.title}`,
     user,
     collection,
     tag,
-
     allTags,
     taggedGamesInCollection
   });
