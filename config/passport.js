@@ -12,7 +12,6 @@ passport.use(
     },
     function (accessToken, refreshToken, profile, cb) {
       let picture = profile._json['picture']
-      console.log("picture: ", picture)
       User.findOne({ googleId: profile.id }, function (err, user) {
         if (err) return cb(err);
         if (user) {

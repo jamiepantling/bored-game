@@ -3,7 +3,8 @@ const request = require("request-promise");
 const User = require("../models/user");
 const Game = require("../models/game");
 const gamesCtrl = require("./games");
-let Tag = require("../models/tag")
+let Tag = require("../models/tag");
+const game = require("../models/game");
 
 const clientId = process.env.ATLAS_CLIENT_ID;
 
@@ -13,6 +14,7 @@ module.exports = {
   show,
   delete: deleteOne,
   update,
+  showTag,
 };
 function newCollection(req, res) {
   if (!req.user) return res.redirect("/games");
@@ -28,17 +30,22 @@ async function create(req, res) {
   user.collections.push(collection);
   await user.save();
   user = await User.findById(req.user.id);
-  res.redirect(`/users/${user._id}/collections/${user.collections[user.collections.length-1]._id}`);
+  res.redirect(
+    `/users/${user._id}/collections/${
+      user.collections[user.collections.length - 1]._id
+    }`
+  );
 }
 
 async function show(req, res) {
-  if (!req.user || (req.user.id != req.params.userId && !user.admin)) return res.redirect("/games");
+  if (!req.user || (req.user.id != req.params.userId && !user.admin))
+    return res.redirect("/games");
 
   //Get the user that the collection belongs to, and populate the collection and games
   let user = await User.findById(req.params.userId).populate({
     path: "collections",
     populate: {
-      path: "games"
+      path: "games",
     },
   });
   //Put the specific collection in a variable using the params
@@ -51,7 +58,7 @@ async function show(req, res) {
   //Get all the games in the library
   let allGames = await Game.find({});
   gamesCtrl.gameSort(allGames);
-  // Compare the ID of each game in the library 
+  // Compare the ID of each game in the library
   // to see if it matches the ID of a game in the collection
   // If not, save to the array "uncollectedGames" for the Add Game dropdown
   let uncollectedGames = [];
@@ -63,13 +70,15 @@ async function show(req, res) {
     )
       uncollectedGames.push(allGames[i]);
   }
-  let collectedGames = collection.games
-  gamesCtrl.gameSort(collectedGames)
+  let collectedGames = collection.games;
+  gamesCtrl.gameSort(collectedGames);
 
   //Get all tags
-  let allTags = await Tag.find({})
-   //Sort tags alphabetically
-  allTags = gamesCtrl.tagSort(allTags)
+  let allTags = await Tag.find({});
+  //Sort tags alphabetically
+  allTags = gamesCtrl.tagSort(allTags);
+
+  //
 
   res.render("collections/show", {
     title: `${collection.title}`,
@@ -77,7 +86,7 @@ async function show(req, res) {
     uncollectedGames,
     allGames,
     collection,
-    allTags
+    allTags,
   });
 }
 
@@ -103,11 +112,42 @@ async function update(req, res) {
     collection.games.push(game);
   } else {
     //Otherwise, remove it
-    let idx = collection.games.indexOf(game._id)
-    collection.games.splice(idx,1)
+    let idx = collection.games.indexOf(game._id);
+    collection.games.splice(idx, 1);
   }
   await user.save();
   res.redirect(
     `/users/${req.params.userId}/collections/${req.params.collectionId}`
   );
+}
+
+async function showTag(req, res) {
+  if (!req.user) return res.redirect("/games");
+  let user = await User.findById(req.params.userId).populate({
+    path: "collections",
+    populate: {
+      path: "games",
+    },
+  });
+  let collection = user.collections.id(req.params.collectionId)
+  let tag = await Tag.findById(req.params.tagId);
+  let allTags = await Tag.find({});
+
+  let taggedGames = await Game.find({
+    tag: { $elemMatch: { $eq: req.params.tagId } },
+  }).populate("tag");
+  console.log("tag id: ", req.params.tagId)
+  console.log(collection.games[0])  
+  let taggedGamesInCollection = collection.games.filter((collectedGame) =>
+    collectedGame.tag.some((tag) => tag.equals(req.params.tagId))
+  );
+  res.render("collections/showTag", {
+    title: `${collection.title}`,
+    user,
+    collection,
+    tag,
+
+    allTags,
+    taggedGamesInCollection
+  });
 }

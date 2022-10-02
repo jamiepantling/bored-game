@@ -11,5 +11,6 @@ router.get("/:id/collections/new", collectionsCtrl.new)
 router.post("/:id/collections", collectionsCtrl.create)
 router.get("/:userId/collections/:collectionId", collectionsCtrl.show)
 router.put("/:userId/collections/:collectionId", collectionsCtrl.update)
+router.get("/:userId/collections/:collectionId/tags/:tagId", collectionsCtrl.showTag)
 
 module.exports = router;

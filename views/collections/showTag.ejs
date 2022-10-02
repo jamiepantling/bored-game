@@ -1,0 +1,60 @@
+<%- include("../partials/header") %>
+<div class="md:max-w-2xl lg:max-w-4xl mx-auto px-5">
+  <div
+    class="bg-white shadow p-2 flex flex-col items-center justify-center overflow-hidden my-3 rounded-lg"
+  >
+    <div class="px-4 py-5 md:px-6">
+      <h3 class="text-2xl leading-6 font-medium text-gray-900">
+        <%=collection.title%>'s <%=tag.content%> games
+      </h3>
+    </div>
+
+    <div class="flex max-w-2xl flex-wrap justify-center mt-2 mx-auto">
+      <% allTags.forEach(function(tag) { %>
+      <div
+        class="bg-green-100 text-green-800 m-1 inline-block font-semibold px-2.5 py-0.5 rounded"
+      >
+        <a
+          class="md:text-md text-sm"
+          href="<%=tag._id%>"
+          ><%=tag.content%></a
+        >
+      </div>
+      <% }) %>
+    </div>
+    <div class="px-4">
+      <div class="flex flex-wrap gap-3 justify-center">
+        <% if (taggedGamesInCollection.length) { %> <% taggedGamesInCollection.forEach(game => {%>
+        <div
+          class="collection-game-card border-2 bg-white flex flex-col justify-around items-center mt-2 px-2 py-2 shadow rounded-lg"
+        >
+          <form
+            action="/users/<%=user._id%>/collections/<%=collection._id%>?_method=PUT"
+            method="POST"
+            class="w-full"
+          >
+            <div class="flex font-bold items-center justify-between">
+              <div class="font-title"><%=game.title%></div>
+              <div>
+                <button
+                  name="game"
+                  class="text-red-600 font-bold text-xl"
+                  value="<%=game._id%>"
+                >
+                  x
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <a class="py-3 px-1" href="/games/<%= game.id%>"
+            ><div class="collection-game-image-container flex justify-center">
+              <img class="object-contain" src="<%=game.picture%>" /></div
+          ></a>
+        </div>
+        <%})%> <%}%>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include("../partials/footer") %>
