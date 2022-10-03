@@ -12,6 +12,8 @@ Log in with your google account and check the games in the database for what tha
 
 ![Screenshot of game index view](/public/images/all-games.png)
 
+![Screenshot of game details view](/public/images/game-show.png)
+
 Or add your favourite game to the database to recommend it to other users! The app will add a picture automatically - you can let the app add a description automatically too, or add your own.
 
 ![Screenshot of new game view](/public/images/add-game.png)
@@ -20,7 +22,6 @@ Create your own collection of games, and add games to it from the library.
 
 ![Screenshot of game details view](/public/images/my-collection.png)
 
-![Screenshot of game details view](/public/images/game-show.png)
 
 You can leave reviews and ratings on games you've played.
 
