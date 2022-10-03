@@ -32,7 +32,7 @@ You can leave reviews and ratings on games you've played.
 * HTML
 * CSS & Tailwind
 * Express & Node.js
-* Mongoose
+* Mongoose, MongoDB
 * OAuth (Google)
 * [Board Game Atlas API](https://www.boardgameatlas.com/api/docs)
 
