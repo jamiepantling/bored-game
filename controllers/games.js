@@ -72,7 +72,8 @@ async function create(req, res) {
 }
 
 async function show(req, res) {
-  // if (!req.user) return res.redirect("/");
+  let collectionsWithoutGame = []
+  let collectionsWithGame = []
   let game = await Game.findById(req.params.id).populate("tag");
   let tags = await Tag.find({});
   let user;
@@ -83,9 +84,18 @@ async function show(req, res) {
         path: "games",
       },
     });
+    user.collections.forEach(collection => {
+      if (!collection.games.some(game=> game.equals(req.params.id)))
+      collectionsWithoutGame.push(collection)
+    })
+    user.collections.forEach(collection => {
+      if (collection.games.some(game=> game.equals(req.params.id)))
+      collectionsWithGame.push(collection)
+    })
   } else {
     user = {};
   }
+  
   let reviews = game.reviews;
   if (!game.picture) {
     let body = await request(
@@ -109,7 +119,7 @@ async function show(req, res) {
       if (!game.description) game.description = description;
     }
   }
-
+  console.log(collectionsWithoutGame)
   await game.save();
   res.render("games/show", {
     game,
@@ -117,6 +127,8 @@ async function show(req, res) {
     tags,
     reviews,
     user,
+    collectionsWithoutGame,
+    collectionsWithGame
   });
 }
 

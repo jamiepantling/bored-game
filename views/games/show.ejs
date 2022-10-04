@@ -17,17 +17,17 @@
         <div class="mt-2 font-bold text-gray-900 md:mt-0 md:col-span-2">
           <div class="font-title"><%=game.title%></div>
 
-          <% if (user.name && user.collections.length) { %>
+          <% if (user.name && user.collections.length) { %> <% if
+          (!collectionsWithoutGame.length && user.collections.length) { %><span class="font-normal"> <%=
+          game.title %> is in all your collections: </span><% } else { %>
           <div class="my-4">
             Add to collection:
-            <form action="/users/<%=user._id%>/games/<%=game._id%>?_method=PUT"
+            <form
+              action="/users/<%=user._id%>/games/<%=game._id%>?_method=PUT"
               method="POST"
-              >
-              <select
-                class="my-2"
-                name="collection"
-              >
-                <% user.collections.forEach(collection => { %>
+            >
+              <select class="my-2" name="collection">
+                <% collectionsWithoutGame.forEach(collection => { %>
                 <option value="<%=collection._id%>">
                   <%= collection.title %>
                 </option>
@@ -39,6 +39,36 @@
                 Add
               </button>
             </form>
+          </div>
+          <% } %>
+          <div>
+            <% if(collectionsWithGame.length) { %>
+              Collections with <%= game.title %>:
+              <% } %>
+            <ul class="flex flex-wrap gap-3 mb-2 justify-left">
+              <% collectionsWithGame.forEach(function(collection, idx) { %>
+              <li class="">
+                <div
+                  class="bg-white flex flex-col justify-between mx-auto mt-2 py-2 px-3 shadow rounded"
+                >
+                  <div class="">
+                    <a
+                      class="font-bold"
+                      href="/users/<%=user.id%>/collections/<%= collection.id%>"
+                    >
+                      📚 <%= collection.title %><br />
+                      <div class="text-right font-normal">
+                        <%
+                        if(collection.games.length>1||!collection.games.length)
+                        { %> <%= collection.games.length %> games <% } else { %>
+                        1 game <% } %>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <%}) %>
+            </ul>
           </div>
           <% } %> <% if (game.gameAuthor == user.id || user.admin) { %>
           <div class="flex w-full mt-3 justify-between md:mr-5">
@@ -57,6 +87,7 @@
               </button>
             </form>
           </div>
+
           <%}%>
         </div>
       </div>
