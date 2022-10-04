@@ -4,7 +4,6 @@ const User = require("../models/user");
 const Game = require("../models/game");
 const gamesCtrl = require("./games");
 let Tag = require("../models/tag");
-const game = require("../models/game");
 
 const clientId = process.env.ATLAS_CLIENT_ID;
 
@@ -15,6 +14,7 @@ module.exports = {
   delete: deleteOne,
   update,
   showTag,
+  addToCollection,
 };
 function newCollection(req, res) {
   if (!req.user) return res.redirect("/games");
@@ -129,10 +129,10 @@ async function showTag(req, res) {
       path: "games",
     },
   });
-  let collection = user.collections.id(req.params.collectionId)
+  let collection = user.collections.id(req.params.collectionId);
   let tag = await Tag.findById(req.params.tagId);
   let allTags = await Tag.find({});
-  allTags = gamesCtrl.tagSort(allTags)
+  allTags = gamesCtrl.tagSort(allTags);
   //Find games in collection where the tag matches the params tagId
   let taggedGamesInCollection = collection.games.filter((collectedGame) =>
     collectedGame.tag.some((tag) => tag.equals(req.params.tagId))
@@ -144,6 +144,22 @@ async function showTag(req, res) {
     collection,
     tag,
     allTags,
-    taggedGamesInCollection
+    taggedGamesInCollection,
   });
+}
+
+async function addToCollection(req, res) {
+  if (!req.user) return res.redirect("/games");
+  let user = await User.findById(req.params.userId).populate({
+    path: "collections",
+    populate: {
+      path: "games",
+    },
+  });
+  let collection = user.collections.id(req.body.collection);
+  let game = await Game.findById(req.params.gameId);
+  if (!collection.games.some((game) => game.equals(req.params.gameId)))
+    collection.games.push(game);
+  await user.save();
+  res.redirect(`/games/${game._id}`);
 }

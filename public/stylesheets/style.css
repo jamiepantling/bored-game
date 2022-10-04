@@ -806,6 +806,10 @@ select{
   margin-top: 1.75rem;
 }
 
+.mb-8{
+  margin-bottom: 2rem;
+}
+
 .block{
   display: block;
 }
