@@ -82,7 +82,7 @@
       <% games.forEach(function(game, idx) { %>
       <li class="index-card">
         <div
-          class="bg-white flex h-full flex-col justify-between mx-auto my-4 p-4 shadow rounded-lg"
+          class="bg-white flex h-full flex-col justify-between mx-auto my-4 p-4 shadow "
         >
           <div class="mb-1">
             <div class="mb-2">
@@ -94,7 +94,7 @@
               class="flex items-center justify-center text-center overflow-hidden"
             >
               <a class="font-bold" href="/games/<%= game.id%>"
-                ><img class="index-image" src="<%=game.picture%>"
+                ><img class="index-image" src="<%=game.picture%>" alt="<%=game.title%> game box"
               /></a>
             </div>
           </div>

@@ -694,6 +694,14 @@ select{
   position: relative;
 }
 
+.right-\[0\.25rem\]{
+  right: 0.25rem;
+}
+
+.top-0{
+  top: 0px;
+}
+
 .top-24{
   top: 6rem;
 }
@@ -704,6 +712,18 @@ select{
 
 .top-32{
   top: 8rem;
+}
+
+.top-1{
+  top: 0.25rem;
+}
+
+.right-1{
+  right: 0.25rem;
+}
+
+.right-2{
+  right: 0.5rem;
 }
 
 .col-span-2{
@@ -734,6 +754,11 @@ select{
   margin-bottom: 1rem;
 }
 
+.mx-4{
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 .my-1{
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
@@ -742,16 +767,6 @@ select{
 .mx-2{
   margin-left: 0.5rem;
   margin-right: 0.5rem;
-}
-
-.mx-3{
-  margin-left: 0.75rem;
-  margin-right: 0.75rem;
-}
-
-.mx-4{
-  margin-left: 1rem;
-  margin-right: 1rem;
 }
 
 .mb-2{
@@ -774,12 +789,8 @@ select{
   margin-right: 0.25rem;
 }
 
-.ml-2{
-  margin-left: 0.5rem;
-}
-
-.mr-2{
-  margin-right: 0.5rem;
+.mt-3{
+  margin-top: 0.75rem;
 }
 
 .mb-3{
@@ -790,12 +801,12 @@ select{
   margin-bottom: 0.25rem;
 }
 
-.mt-3{
-  margin-top: 0.75rem;
-}
-
 .mt-1{
   margin-top: 0.25rem;
+}
+
+.mr-2{
+  margin-right: 0.5rem;
 }
 
 .ml-1{
@@ -804,10 +815,6 @@ select{
 
 .mt-7{
   margin-top: 1.75rem;
-}
-
-.mb-8{
-  margin-bottom: 2rem;
 }
 
 .block{
@@ -872,14 +879,6 @@ select{
   width: 4rem;
 }
 
-.w-52{
-  width: 13rem;
-}
-
-.w-56{
-  width: 14rem;
-}
-
 .max-w-2xl{
   max-width: 42rem;
 }
@@ -888,16 +887,16 @@ select{
   max-width: 28rem;
 }
 
+.max-w-lg{
+  max-width: 32rem;
+}
+
 .max-w-sm{
   max-width: 24rem;
 }
 
 .max-w-screen-sm{
   max-width: 640px;
-}
-
-.max-w-lg{
-  max-width: 32rem;
 }
 
 .flex-none{
@@ -930,10 +929,6 @@ select{
 
 .flex-wrap{
   flex-wrap: wrap;
-}
-
-.items-start{
-  align-items: flex-start;
 }
 
 .items-end{
@@ -978,10 +973,6 @@ select{
 
 .gap-4{
   gap: 1rem;
-}
-
-.gap-5{
-  gap: 1.25rem;
 }
 
 .overflow-hidden{
@@ -1173,10 +1164,6 @@ select{
 
 .pb-10{
   padding-bottom: 2.5rem;
-}
-
-.pl-3{
-  padding-left: 0.75rem;
 }
 
 .text-left{
@@ -1500,14 +1487,14 @@ select{
     grid-column: span 2 / span 2;
   }
 
-  .md\:my-2{
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-
   .md\:my-3{
     margin-top: 0.75rem;
     margin-bottom: 0.75rem;
+  }
+
+  .md\:my-2{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .md\:mt-0{
@@ -1524,10 +1511,6 @@ select{
 
   .md\:ml-5{
     margin-left: 1.25rem;
-  }
-
-  .md\:ml-2{
-    margin-left: 0.5rem;
   }
 
   .md\:grid{
@@ -1558,12 +1541,12 @@ select{
     align-items: center;
   }
 
-  .md\:gap-4{
-    gap: 1rem;
-  }
-
   .md\:gap-5{
     gap: 1.25rem;
+  }
+
+  .md\:gap-4{
+    gap: 1rem;
   }
 
   .md\:px-6{
