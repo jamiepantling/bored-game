@@ -94,8 +94,11 @@
               class="flex items-center justify-center text-center overflow-hidden"
             >
               <a class="font-bold" href="/games/<%= game.id%>"
-                ><img class="index-image" src="<%=game.picture%>" alt="<%=game.title%> game box"
-              /></a>
+                ><%if (game.picture) { %>
+      <img class="index-image" src="<%=game.picture%>" alt="<%=game.title%> game box"/>
+    <% } else { %>
+      <img class="index-image" src="/images/dice-white.svg" alt="Two white dice on a white background"/>
+    <% } %></a>
             </div>
           </div>
           <div class="flex flex-col">

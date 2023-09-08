@@ -5,9 +5,11 @@
   <div class="px-4 py-5 md:px-6">
     <h3 class="text-lg leading-6 font-medium text-gray-900">Game details</h3>
     <div
-      class="flex items-center justify-center max-h-72 text-center overflow-hidden"
+      class="flex items-center justify-center max-h-72 pt-8 pb-8 text-center overflow-hidden"
     >
-      <img class="max-h-72" src="<%=game.picture%>" alt="<%=game.title%> game box"/>
+      <img class="max-h-72 max-w-[18rem]" <%if (game.picture) { %>src="<%=
+      game.picture%>"<% } else { %> src="/images/dice-white.svg" <% } %>
+      alt="<%=game.title%> game box"/>
     </div>
   </div>
   <div class="border-t border-gray-200">
@@ -18,8 +20,11 @@
           <div class="font-title"><%=game.title%></div>
 
           <% if (user.name && user.collections.length) { %> <% if
-          (!collectionsWithoutGame.length && user.collections.length) { %><span class="font-normal"> <%=
-          game.title %> is in all your collections: </span><% } else { %>
+          (!collectionsWithoutGame.length && user.collections.length) { %><span
+            class="font-normal"
+          >
+            <%= game.title %> is in all your collections: </span
+          ><% } else { %>
           <div class="my-4">
             Add to collection:
             <form
@@ -42,9 +47,8 @@
           </div>
           <% } %>
           <div>
-            <% if(collectionsWithGame.length) { %>
-              Collections with <%= game.title %>:
-              <% } %>
+            <% if(collectionsWithGame.length) { %> Collections with <%=
+            game.title %>: <% } %>
             <ul class="flex flex-wrap gap-3 mb-2 justify-left">
               <% collectionsWithGame.forEach(function(collection, idx) { %>
               <li class="">
