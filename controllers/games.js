@@ -6,7 +6,10 @@ let Tag = require("../models/tag");
 const user = require("../models/user");
 let User = require("../models/user");
 const clientId = process.env.ATLAS_CLIENT_ID;
-const rootURL = "https://api.boardgameatlas.com/api/";
+const rootURL = "https://boardgamegeek.com/xmlapi2/";
+const xml2js = require("xml2js");
+const parser = new xml2js.Parser();
+const util = require("util");
 
 module.exports = {
   index,
@@ -72,8 +75,8 @@ async function create(req, res) {
 }
 
 async function show(req, res) {
-  let collectionsWithoutGame = []
-  let collectionsWithGame = []
+  let collectionsWithoutGame = [];
+  let collectionsWithGame = [];
   let game = await Game.findById(req.params.id).populate("tag");
   let tags = await Tag.find({});
   let user;
@@ -84,42 +87,43 @@ async function show(req, res) {
         path: "games",
       },
     });
-    user.collections.forEach(collection => {
-      if (!collection.games.some(game=> game.equals(req.params.id)))
-      collectionsWithoutGame.push(collection)
-    })
-    user.collections.forEach(collection => {
-      if (collection.games.some(game=> game.equals(req.params.id)))
-      collectionsWithGame.push(collection)
-    })
+    user.collections.forEach((collection) => {
+      if (!collection.games.some((game) => game.equals(req.params.id)))
+        collectionsWithoutGame.push(collection);
+    });
+    user.collections.forEach((collection) => {
+      if (collection.games.some((game) => game.equals(req.params.id)))
+        collectionsWithGame.push(collection);
+    });
   } else {
     user = {};
   }
-  
+
   let reviews = game.reviews;
   if (!game.picture) {
-    let body = await request(
-      `${rootURL}search?name=${game.title}&client_id=${clientId}`
-    );
-    body = await JSON.parse(body);
-    if (body.games.length) {
-      let image = body.games[0].thumb_url;
-      let description = "";
-      if (!game.description) {
-        description = body.games[0].description;
+    try {
+      const body = await request(
+        `${rootURL}search?query=${game.title}&type=boardgame&exact=1`
+      );
+      const result = await parseXmlString(body);
+
+      if (result["items"]["$"]["total"] >= "1") {
+        let id = result["items"]["item"][0]["$"]["id"];
+        const gameDetailsXml = await request(`${rootURL}thing?id=${id}`);
+        const detailsResult = await parseXmlString(gameDetailsXml);
+
+        game.picture = detailsResult["items"]["item"][0]["image"][0];
+
+        if (!game.description) {
+          game.description =
+            detailsResult["items"]["item"][0]["description"][0];
+        }
       }
-      if (
-        image ===
-        "https://s3-us-west-1.amazonaws.com/5cc.images/games/empty+box+thumb.jpg"
-      ) {
-        image = body.games[1].thumb_url;
-        description = body.games[1].description;
-      }
-      game.picture = image;
-      if (!game.description) game.description = description;
+    } catch (err) {
+      console.error("Error:", err);
     }
   }
-  console.log(collectionsWithoutGame)
+  console.log("Game: ", game);
   await game.save();
   res.render("games/show", {
     game,
@@ -128,7 +132,7 @@ async function show(req, res) {
     reviews,
     user,
     collectionsWithoutGame,
-    collectionsWithGame
+    collectionsWithGame,
   });
 }
 
@@ -167,7 +171,7 @@ async function update(req, res) {
 async function deleteOne(req, res) {
   if (!req.user) return res.redirect("/games");
   let game = await Game.findById(req.params.id);
-  let user = await User.findById(req.user.id)
+  let user = await User.findById(req.user.id);
   if (req.user.id != game.gameAuthor && !user.admin) {
     return res.redirect(`/games/${game._id}`);
   }
@@ -229,6 +233,17 @@ function gameSort(games) {
     }
     return 0;
   }));
+}
+
+function parseXmlString(xmlString) {
+  return new Promise((resolve, reject) => {
+    parser.parseString(xmlString, (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve(result);
+    });
+  });
 }
 
 // ** Below code saved for future problem solving **
