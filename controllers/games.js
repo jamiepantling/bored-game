@@ -6,7 +6,12 @@ let Tag = require("../models/tag");
 const user = require("../models/user");
 let User = require("../models/user");
 const clientId = process.env.ATLAS_CLIENT_ID;
-const rootURL = "https://boardgamegeek.com/xmlapi2/";
+const bggURL = "https://boardgamegeek.com/xmlapi2/";
+const oracleURL =
+  "https://www.boardgameoracle.com/api/boardgame?region=ca&page=1&limit=24&sort=relevance&q=";
+//   const body = await request(
+// `${rootURL}search?query=${game.title}&type=boardgame&exact=1`
+
 const xml2js = require("xml2js");
 const parser = new xml2js.Parser();
 const util = require("util");
@@ -102,22 +107,42 @@ async function show(req, res) {
   let reviews = game.reviews;
   if (!game.picture) {
     try {
+      const oracle = await request(`${oracleURL}${game.title}`);
+      const oracleResult = JSON.parse(oracle);
+      console.log(
+        "Oracle Search Results: ",
+        util.inspect(oracleResult, false, null, true)
+      );
+      const oracleTitle = oracleResult.items[0].title;
+      // const oracleImage = oracleResult.items[0].media.source.thumb_lg.href;
+      game.title = oracleTitle;
       const body = await request(
-        `${rootURL}search?query=${game.title}&type=boardgame&exact=1`
+        `${bggURL}search?query=${oracleTitle}&type=boardgame&exact=1`
       );
       const result = await parseXmlString(body);
 
-      if (result["items"]["$"]["total"] >= "1") {
-        let id = result["items"]["item"][0]["$"]["id"];
-        const gameDetailsXml = await request(`${rootURL}thing?id=${id}`);
-        const detailsResult = await parseXmlString(gameDetailsXml);
+      console.log(
+        "BGG Search result: ",
+        util.inspect(result, false, null, true)
+      );
+      const bggId = result.items.item[0].$.id;
 
-        game.picture = detailsResult["items"]["item"][0]["image"][0];
+      const gameDetailsXml = await request(`${bggURL}thing?id=${bggId}`);
+      const detailsResult = await parseXmlString(gameDetailsXml);
+      console.log(
+        "Details Result: ",
+        util.inspect(detailsResult, false, null, true)
+      );
+      game.picture = detailsResult["items"]["item"][0]["image"][0];
 
-        if (!game.description) {
-          game.description =
-            detailsResult["items"]["item"][0]["description"][0];
-        }
+      if (!game.description) {
+        description = detailsResult["items"]["item"][0]["description"][0] + " Description from Board Game Geek."
+        const decodedDescription = description
+          .replace(/&#10;/g, "\n")
+          .replace(/&quot;/g, '"')
+          .replace(/&amp;/g, "&");
+        game.description = decodedDescription
+      
       }
     } catch (err) {
       console.error("Error:", err);
