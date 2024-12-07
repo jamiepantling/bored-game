@@ -8,7 +8,7 @@
 
 ![Screenshot of landing page](/public/images/landing-page.png)
 
-Log in with your google account and check the games in the database for what that suits your mood. Search by theme, or just browse them all. 
+Log in with your google account and check the games in the database for whatever suits your mood. Search by theme, or just browse them all. 
 
 ![Screenshot of game index view](/public/images/all-games.png)
 
