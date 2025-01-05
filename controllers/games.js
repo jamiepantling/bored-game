@@ -1,20 +1,22 @@
-const { redirect } = require("express/lib/response");
-const request = require("request-promise");
-const game = require("../models/game");
-let Game = require("../models/game");
-let Tag = require("../models/tag");
-const user = require("../models/user");
-let User = require("../models/user");
+const { redirect } = require('express/lib/response');
+const request = require('request-promise');
+const game = require('../models/game');
+let Game = require('../models/game');
+let Tag = require('../models/tag');
+const user = require('../models/user');
+let User = require('../models/user');
 const clientId = process.env.ATLAS_CLIENT_ID;
-const bggURL = "https://boardgamegeek.com/xmlapi2/";
+const bggURL = 'https://boardgamegeek.com/xmlapi2/';
 const oracleURL =
-  "https://www.boardgameoracle.com/api/boardgame?region=ca&page=1&limit=24&sort=relevance&q=";
+  'https://www.boardgameoracle.com/api/boardgame?region=ca&page=1&limit=24&sort=relevance&q=';
+const oracleURLStart =
+  'https://www.boardgameoracle.com/api/trpc/boardgame.suggestion?batch=1&input=%7B%220%22%3A%7B%22q%22%3A%22';
 //   const body = await request(
 // `${rootURL}search?query=${game.title}&type=boardgame&exact=1`
 
-const xml2js = require("xml2js");
+const xml2js = require('xml2js');
 const parser = new xml2js.Parser();
-const util = require("util");
+const util = require('util');
 
 module.exports = {
   index,
@@ -31,14 +33,14 @@ module.exports = {
 
 async function index(req, res) {
   try {
-    let games = await Game.find({}).populate("tag");
+    let games = await Game.find({}).populate('tag');
     let tags = await Tag.find({});
     let user;
     if (req.user) {
       user = await User.findById(req.user.id).populate({
-        path: "collections",
+        path: 'collections',
         populate: {
-          path: "games",
+          path: 'games',
         },
       });
     } else {
@@ -47,10 +49,10 @@ async function index(req, res) {
 
     tags = tagSort(tags);
     games = gameSort(games);
-    res.render("games/index", {
+    res.render('games/index', {
       user,
       games,
-      title: "All games",
+      title: 'All games',
       tags,
     });
   } catch (error) {
@@ -59,14 +61,14 @@ async function index(req, res) {
 }
 
 async function newGame(req, res) {
-  if (!req.user) return res.redirect("/games");
+  if (!req.user) return res.redirect('/games');
   let tags = await Tag.find({});
   tags = tagSort(tags);
-  res.render("games/new", { title: "Add new game", tags });
+  res.render('games/new', { title: 'Add new game', tags });
 }
 
 async function create(req, res) {
-  if (!req.user) return res.redirect("/games");
+  if (!req.user) return res.redirect('/games');
   let gameBody = {
     title: req.body.title,
     description: req.body.description,
@@ -82,18 +84,20 @@ async function create(req, res) {
 async function show(req, res) {
   let collectionsWithoutGame = [];
   let collectionsWithGame = [];
-  let game = await Game.findById(req.params.id).populate("tag");
+  let game = await Game.findById(req.params.id).populate('tag');
   let tags = await Tag.find({});
   let user;
   if (req.user) {
     user = await User.findById(req.user.id).populate({
-      path: "collections",
+      path: 'collections',
       populate: {
-        path: "games",
+        path: 'games',
       },
     });
     user.collections.forEach((collection) => {
-      if (!collection.games.some((game) => game.equals(req.params.id)))
+      if (
+        !collection.games.some((game) => game.equals(req.params.id))
+      )
         collectionsWithoutGame.push(collection);
     });
     user.collections.forEach((collection) => {
@@ -107,14 +111,17 @@ async function show(req, res) {
   let reviews = game.reviews;
   if (!game.picture) {
     try {
-      const oracle = await request(`${oracleURL}${game.title}`);
+      const oracle = await request(
+        `${oracleURLStart}${game.title}%22%2C%22limit%22%3A1%7D%7D`
+      );
       const oracleResult = JSON.parse(oracle);
       console.log(
-        "Oracle Search Results: ",
-        util.inspect(oracleResult, false, null, true)
+        'Oracle Search Results: ',
+        util.inspect(oracleResult[0], false, null, true)
       );
-      const oracleTitle = oracleResult.items[0].title;
-      // const oracleImage = oracleResult.items[0].media.source.thumb_lg.href;
+
+      const oracleTitle = oracleResult[0].result.data.items[0].title;
+
       game.title = oracleTitle;
       const body = await request(
         `${bggURL}search?query=${oracleTitle}&type=boardgame&exact=1`
@@ -122,35 +129,38 @@ async function show(req, res) {
       const result = await parseXmlString(body);
 
       console.log(
-        "BGG Search result: ",
+        'BGG Search result: ',
         util.inspect(result, false, null, true)
       );
       const bggId = result.items.item[0].$.id;
 
-      const gameDetailsXml = await request(`${bggURL}thing?id=${bggId}`);
+      const gameDetailsXml = await request(
+        `${bggURL}thing?id=${bggId}`
+      );
       const detailsResult = await parseXmlString(gameDetailsXml);
       console.log(
-        "Details Result: ",
+        'Details Result: ',
         util.inspect(detailsResult, false, null, true)
       );
-      game.picture = detailsResult["items"]["item"][0]["image"][0];
+      game.picture = detailsResult['items']['item'][0]['image'][0];
 
       if (!game.description) {
-        description = detailsResult["items"]["item"][0]["description"][0] + " Description from Board Game Geek."
+        description =
+          detailsResult['items']['item'][0]['description'][0] +
+          ' Description from Board Game Geek.';
         const decodedDescription = description
-          .replace(/&#10;/g, "\n")
+          .replace(/&#10;/g, '\n')
           .replace(/&quot;/g, '"')
-          .replace(/&amp;/g, "&");
-        game.description = decodedDescription
-      
+          .replace(/&amp;/g, '&');
+        game.description = decodedDescription;
       }
     } catch (err) {
-      console.error("Error:", err);
+      console.error('Error:', err);
     }
   }
-  console.log("Game: ", game);
+  console.log('Game: ', game);
   await game.save();
-  res.render("games/show", {
+  res.render('games/show', {
     game,
     title: game.title,
     tags,
@@ -163,9 +173,9 @@ async function show(req, res) {
 
 async function edit(req, res) {
   // If there's no user logged in, redirect to the games index page
-  if (!req.user) return res.redirect("/games");
+  if (!req.user) return res.redirect('/games');
   // Find specific game in database and populate the tags rather than just IDs
-  let game = await Game.findById(req.params.id).populate("tag");
+  let game = await Game.findById(req.params.id).populate('tag');
   let user = await User.findById(req.user.id);
   // If the user isn't the creator, redirect to the game's show page
 
@@ -176,12 +186,12 @@ async function edit(req, res) {
   // edit page with the game's title, it's data and the sorted tags
   let tags = await Tag.find({});
   tags = tagSort(tags);
-  res.render("games/edit", { title: game.title, game, tags });
+  res.render('games/edit', { title: game.title, game, tags });
 }
 
 async function update(req, res) {
   //If there's no user logged in, redirect to the games index page
-  if (!req.user) return res.redirect("/games");
+  if (!req.user) return res.redirect('/games');
   // Find specific game in database
   let game = await Game.findById(req.params.id);
   // Associate title, description and tag from form with specific game, and save
@@ -194,7 +204,7 @@ async function update(req, res) {
 }
 
 async function deleteOne(req, res) {
-  if (!req.user) return res.redirect("/games");
+  if (!req.user) return res.redirect('/games');
   let game = await Game.findById(req.params.id);
   let user = await User.findById(req.user.id);
   if (req.user.id != game.gameAuthor && !user.admin) {
@@ -202,13 +212,13 @@ async function deleteOne(req, res) {
   }
   await game.remove();
 
-  res.redirect("/games/");
+  res.redirect('/games/');
 }
 
 // This is actually a toggle tag function - consider renaming
 async function addTag(req, res) {
   // If there's no user logged in, redirect to the games index page
-  if (!req.user) return res.redirect("/games");
+  if (!req.user) return res.redirect('/games');
   // Get the appropriate game and tag from the database
   let game = await Game.findById(req.params.gameId);
   let newTag = await Tag.findById(req.params.tagId);
